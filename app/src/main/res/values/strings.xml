@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Plan It</string>
     <string name="action_settings">Settings</string>
+    <string name="consumer_key">SNnzTerT0MIPZjPgOA84Vg</string>
+    <string name="consumer_secret">1jGdVPAVg58iL05c3AJ8nT63iHI</string>
+    <string name="token">hJ5_EhNyMQM2FRcUBLAtyy5lHc8lcaFE</string>
+    <string name="token_secret">Z4cKpZOCGC8ytwjOWZanM4Bzfqo</string>
 </resources>
