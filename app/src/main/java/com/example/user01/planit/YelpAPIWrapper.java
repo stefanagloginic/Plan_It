@@ -23,7 +23,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
     private String  location;
     private YelpAPI yelpAPI;
     private ArrayList<Business> businesses;
-    private ArrayList<String> info;
+    private ArrayList<YelpEvent> yelpEvents;
 
     YelpAPIWrapper(Activity activity, String location) {
         this.activity = activity;
@@ -34,7 +34,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
                         this.activity.getString(R.string.token),
                         this.activity.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
-        info = new ArrayList<>();
     }
     @Override
     protected void onPreExecute() {
@@ -52,43 +51,22 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
             SearchResponse searchResponse = call.execute().body();
             Log.i("info", "Start adding stuff");
             businesses = searchResponse.businesses();
-            info.add(businesses.get(10).name());
-            /*System.out.println(businesses.get(10).name());
-            info.add(businesses.get(10).location().address().get(0));
-            info.add(String.valueOf(businesses.get(10).rating()));
-            info.add(businesses.get(10).url());*/
             Log.i("info", "Finished adding stuff");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return info;
+        return new ArrayList<>();
     }
 
     @Override
     protected void onPostExecute(ArrayList<String> s) {
-
-        View b = this.activity.findViewById(R.id.button);
-        b.setBackgroundResource(android.R.drawable.btn_default);
-        b.setEnabled(true);
-        Log.i("info", "PostExecute");
+        yelpEvents = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            yelpEvents.add(new YelpEvent(activity,businesses.get(i)));
+        }
     }
 
-   /* public String getBusinessName() {
-        return info.get(0);
-    }
-    public String getBusinessAddress() {
-        return info.get(1);
-    }
-
-    public String getBusinessRating() {
-        return info.get(2);
-    }
-
-    public String getBusinessURL() {
-        return info.get(3);
-    }*/
-
-    public ArrayList<Business> getBusinesses(){
-        return  businesses;
+    public ArrayList<YelpEvent> getYelpEvents(){
+        return yelpEvents;
     }
 }

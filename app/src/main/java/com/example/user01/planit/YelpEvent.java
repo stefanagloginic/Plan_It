@@ -4,53 +4,47 @@ import android.app.Activity;
 
 import com.yelp.clientlib.entities.Business;
 
-import org.jsoup.nodes.Document;
-
 import java.io.IOException;
 
 
-public class YelpEvent {
-    Activity activity;
-    String businessName;
-    String businessAddress;
-    String businessRating;
-    String businessURL;
-    //String businessHours;
-    //YelpHTMLGetter docGetter;
-    //Document doc;
-    //String businessPriceRange;
-
+public class YelpEvent extends Event{
+    private Activity activity;
+    private String businessHours;
+    private YelpHTMLWrapper yelpHTMLWrapper;
 
     public YelpEvent(Activity activity,Business b) {
         this.activity = activity;
-        businessName = b.name();
-        businessAddress = b.location().address().get(0);
-        businessRating = String.valueOf(b.rating());
-        businessURL = b.url();
-        //docGetter = new YelpHTMLGetter(activity, businessURL);
-        //docGetter.execute();
-        //doc = docGetter.getDoc();
-
-        //parser = new YelpHTMLParser(activity, businessURL, "friday");
-        //businessHours = parser.getDailyHours();
-
+        this.eventName = b.name();
+        this.eventAddress = b.location().address().get(0);
+        this.eventRating = String.valueOf(b.rating());
+        this.eventURL = b.url();
+        yelpHTMLWrapper = new YelpHTMLWrapper(activity, eventURL);
+        yelpHTMLWrapper.execute();
     }
 
-    public String getBusinessName() { return businessName; }
+    public String getBusinessName() { return eventName; }
 
-    public String getBusinessAddress() {
-        return businessAddress;
-    }
+    public String getBusinessAddress() { return eventAddress; }
 
     public String getBusinessRating() {
-        return businessRating;
+        return eventRating;
     }
 
     public String getBusinessURL() {
-        return businessURL;
+        return eventURL;
     }
 
-    /*public String getBusinessHours() {
+    public String getBusinessHours() {
+        try {
+            businessHours = yelpHTMLWrapper.getDailyHour("monday");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return businessHours;
-    }*/
+    }
+
+    public String getBusinessPriceRange() {
+        return eventPriceRange = yelpHTMLWrapper.getPriceRange();
+    }
+
 }

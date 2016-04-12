@@ -54,6 +54,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"
+        android:text="Price Range"
+        android:layout_below="@+id/hours"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
 
     <Button
         android:layout_width="wrap_content"
