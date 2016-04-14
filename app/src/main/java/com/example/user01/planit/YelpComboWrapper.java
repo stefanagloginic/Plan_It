@@ -22,7 +22,7 @@ public class YelpComboWrapper {
         yelp.execute();
     }
 
-    public ArrayList<YelpEvent> createYelpEventArray(){
+    public ArrayList<Event> createYelpEventArray(){
         return yelp.getYelpEvents();
     }
 }

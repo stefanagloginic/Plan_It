@@ -12,67 +12,15 @@
     tools:context="com.example.user01.planit.MainActivity"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:id="@+id/businessName"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/address"
-        android:text="Address"
-        android:layout_below="@+id/businessName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rating"
-        android:text="Rating"
-        android:layout_below="@+id/address"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/url"
-        android:text="URL"
-        android:layout_below="@+id/rating"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hours"
-        android:text="Hours"
-        android:layout_below="@+id/url"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/price"
-        android:text="Price Range"
-        android:layout_below="@+id/hours"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Create Cards"
         android:id="@+id/button"
-        android:layout_below="@+id/businessName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="192dp"
-        android:longClickable="false"/>
+        android:longClickable="false"
+        android:onClick="createRecyclerView"/>
 
     <EditText
         android:layout_width="wrap_content"

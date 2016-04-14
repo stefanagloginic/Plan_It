@@ -23,7 +23,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
     private String  location;
     private YelpAPI yelpAPI;
     private ArrayList<Business> businesses;
-    private ArrayList<YelpEvent> yelpEvents;
+    private ArrayList<Event> yelpEvents;
 
     YelpAPIWrapper(Activity activity, String location) {
         this.activity = activity;
@@ -45,6 +45,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
     @Override
     protected ArrayList<String> doInBackground(Void... params) {
         try {
+            Log.i("info", "DoInBackground");
             Map<String, String> param = new HashMap<>();
             Call<SearchResponse> call = yelpAPI.search(this.location, param);
 
@@ -55,7 +56,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return null;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
         }
     }
 
-    public ArrayList<YelpEvent> getYelpEvents(){
+    public ArrayList<Event> getYelpEvents(){
         return yelpEvents;
     }
 }

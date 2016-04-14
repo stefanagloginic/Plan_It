@@ -1,16 +1,26 @@
 package com.example.user01.planit;
 
 import android.app.Activity;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.yelp.clientlib.entities.Business;
 
 import java.io.IOException;
 
 
-public class YelpEvent extends Event{
+public class YelpEvent extends Event implements Parcelable{
     private Activity activity;
     private String businessHours;
     private YelpHTMLWrapper yelpHTMLWrapper;
+
+    public YelpEvent(Parcel in) {
+        eventName = in.readString();
+        eventAddress = in.readString();
+        eventRating = in.readString();
+        eventURL = in.readString();
+        eventPriceRange = in.readString();
+    }
 
     public YelpEvent(Activity activity,Business b) {
         this.activity = activity;
@@ -22,17 +32,17 @@ public class YelpEvent extends Event{
         yelpHTMLWrapper.execute();
     }
 
-    public String getBusinessName() { return eventName; }
+    public static final Parcelable.Creator<YelpEvent> CREATOR =
+            new Parcelable.Creator<YelpEvent>() {
+                public YelpEvent createFromParcel(Parcel in) {
+                    return new YelpEvent(in);
+                }
 
-    public String getBusinessAddress() { return eventAddress; }
-
-    public String getBusinessRating() {
-        return eventRating;
-    }
-
-    public String getBusinessURL() {
-        return eventURL;
-    }
+                @Override
+                public YelpEvent[] newArray(int size) {
+                    return new YelpEvent[size];
+                }
+            };
 
     public String getBusinessHours() {
         try {
@@ -43,8 +53,9 @@ public class YelpEvent extends Event{
         return businessHours;
     }
 
-    public String getBusinessPriceRange() {
+    public String getEventPriceRange() {
         return eventPriceRange = yelpHTMLWrapper.getPriceRange();
     }
+
 
 }
