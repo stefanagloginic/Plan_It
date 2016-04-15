@@ -16,77 +16,61 @@
     android:weightSum="9"
     >
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
+    <Space
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/location"
-        android:textSize="20sp"
-        android:layout_weight="1"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.50" />
 
     <EditText
         android:id="@+id/location_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="15dp"
         android:hint="@string/location_hint"
+        android:textAlignment="center"
         android:singleLine="true"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/time_of_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time_of_day"
-        android:textSize="20sp"
         android:layout_weight="1"/>
 
     <Spinner
         android:id="@+id/time_of_day_spinner"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border"
+        android:layout_width="250dp"
+        android:layout_height="15dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_weight="1">
     </Spinner>
 
-    <TextView
-        android:id="@+id/price_range"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/price_range"
-        android:textSize="20sp"
-        android:layout_weight="1"/>
+
 
     <Spinner
         android:id="@+id/price_range_spinner"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border"
+        android:layout_width="250dp"
+        android:layout_height="15dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_weight="1">
     </Spinner>
-
-    <TextView
-        android:id="@+id/activity_preferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_preferences"
-        android:textSize="20sp"
-        android:layout_weight="1"/>
 
     <Spinner
         android:id="@+id/activity_preferences_spinner"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border"
+        android:layout_width="250dp"
+        android:layout_height="15dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_weight="1">
     </Spinner>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
     <Button
         android:id="@+id/generate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="2dp"
         android:layout_marginTop="17dp"
         android:longClickable="false"
         android:text="@string/plan_it"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
