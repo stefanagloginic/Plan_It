@@ -1,11 +1,7 @@
 package com.example.user01.planit;
 
 
-import android.app.Activity;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,33 +11,18 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class YelpHTMLWrapper extends AsyncTask<Void, Void, String>{
-    private Activity activity;
+public class YelpHTMLScraper {
     private String businessURL;
     private ArrayList<String> hours;
     private Document doc;
-    private static int NUMTIMES = 0;
+    private String priceRange;
 
-    YelpHTMLWrapper(Activity activity, String businessURL) {
-        this.activity = activity;
+    YelpHTMLScraper(String businessURL) {
         this.businessURL = businessURL;
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
         try {
             doc = Jsoup.connect(businessURL).userAgent("Mozilla").get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        try {
             getHours();
+            priceRange = doc.select("dd.nowrap.price-description").first().text();
             Log.i("info","getHours");
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,13 +39,6 @@ public class YelpHTMLWrapper extends AsyncTask<Void, Void, String>{
             Elements day = row.select("th");
             Elements time = row.select("td");
             hours.add(day.get(0).text() + " " + time.get(0).text());
-        }
-        NUMTIMES++;
-        if (NUMTIMES > 4 ) {
-            Button button = (Button) this.activity.findViewById(R.id.button);
-            button.setBackgroundResource(android.R.drawable.btn_default);
-            button.setEnabled(true);
-            NUMTIMES = 0;
         }
     }
 
@@ -91,7 +65,6 @@ public class YelpHTMLWrapper extends AsyncTask<Void, Void, String>{
     }
 
     public String getPriceRange() {
-        Element range = doc.select("dd.nowrap.price-description").first();
-        return range.text();
+        return priceRange;
     }
 }

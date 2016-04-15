@@ -5,4 +5,30 @@
     <string name="consumer_secret">1jGdVPAVg58iL05c3AJ8nT63iHI</string>
     <string name="token">hJ5_EhNyMQM2FRcUBLAtyy5lHc8lcaFE</string>
     <string name="token_secret">Z4cKpZOCGC8ytwjOWZanM4Bzfqo</string>
+    <string name="location_hint">"Enter location or zip code"</string>
+    <string name="plan_it">Plan It!</string>
+    <string name="location">Location</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="price_range">Price Range</string>
+    <string name="activity_preferences">Activity Preferences</string>
+    <string-array name="time_of_day_choices">
+        <item>Any</item>
+        <item>Morning</item>
+        <item>Afternoon</item>
+        <item>Evening</item>
+    </string-array>
+    <string-array name="price_range_choices">
+        <item>Any</item>
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+    </string-array>
+    <string-array name="activity_preferences_choices">
+        <item>Any</item>
+        <item>Adventurous</item>
+        <item>Active</item>
+        <item>Naturey</item>
+        <item>Hungry</item>
+    </string-array>
 </resources>

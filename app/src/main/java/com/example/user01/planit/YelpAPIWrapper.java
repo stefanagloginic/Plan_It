@@ -1,10 +1,9 @@
 package com.example.user01.planit;
 
-import android.app.Activity;
-import android.graphics.Color;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
@@ -18,41 +17,37 @@ import java.util.Map;
 
 import retrofit.Call;
 
-public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
-    private Activity activity;
-    private String  location;
+public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
+    private Context context;
     private YelpAPI yelpAPI;
+    private ArrayList<String> settings;
     private ArrayList<Business> businesses;
     private ArrayList<Event> yelpEvents;
 
-    YelpAPIWrapper(Activity activity, String location) {
-        this.activity = activity;
-        this.location = location;
-        YelpAPIFactory yelpAPIFactory = new YelpAPIFactory
-                (this.activity.getString(R.string.consumer_key),
-                        this.activity.getString(R.string.consumer_secret),
-                        this.activity.getString(R.string.token),
-                        this.activity.getString(R.string.token_secret));
+    YelpAPIWrapper(Context context, ArrayList<String> settings) {
+        this.context = context;
+        this.settings = settings;
+        YelpAPIFactory yelpAPIFactory = new YelpAPIFactory(
+                this.context.getString(R.string.consumer_key),
+                        this.context.getString(R.string.consumer_secret),
+                        this.context.getString(R.string.token),
+                        this.context.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
+        yelpEvents = new ArrayList<>();
     }
+
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        View b = this.activity.findViewById(R.id.button);
-        b.setBackgroundColor(Color.TRANSPARENT);
-        b.setEnabled(false);
-    }
-    @Override
-    protected ArrayList<String> doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
         try {
-            Log.i("info", "DoInBackground");
             Map<String, String> param = new HashMap<>();
-            Call<SearchResponse> call = yelpAPI.search(this.location, param);
+
+            Call<SearchResponse> call = yelpAPI.search(settings.get(0), param);
 
             SearchResponse searchResponse = call.execute().body();
-            Log.i("info", "Start adding stuff");
             businesses = searchResponse.businesses();
-            Log.i("info", "Finished adding stuff");
+
+            int randomNum = (int) (Math.random() * 20);
+            yelpEvents.add(new YelpEvent(businesses.get(randomNum)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,14 +55,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, String, ArrayList<String>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> s) {
-        yelpEvents = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            yelpEvents.add(new YelpEvent(activity,businesses.get(i)));
-        }
+    protected void onPostExecute(Void aVoid) {
+        Log.i("info", "After while loop");
+        Intent intent = new Intent(context,RecyclerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putParcelableArrayListExtra("events", yelpEvents);
+        context.startActivity(intent);
     }
 
-    public ArrayList<Event> getYelpEvents(){
-        return yelpEvents;
-    }
 }

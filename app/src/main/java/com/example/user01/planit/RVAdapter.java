@@ -51,11 +51,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(EventViewHolder personViewHolder, int i) {
-        personViewHolder.eventName.setText(events.get(i).getEventName());
-        personViewHolder.eventAddress.setText(events.get(i).getEventAddress());
-        personViewHolder.eventRating.setText(events.get(i).getEventRating());
-//        personViewHolder.eventPriceRange.setText(events.get(i).getEventPriceRange());
+    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+        eventViewHolder.eventName.setText(events.get(i).getEventName());
+        eventViewHolder.eventAddress.setText(events.get(i).getEventAddress());
+        eventViewHolder.eventRating.setText(events.get(i).getEventRating());
+        eventViewHolder.eventPriceRange.setText(events.get(i).getEventPriceRange());
     }
 
     @Override

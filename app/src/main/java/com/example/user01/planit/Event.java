@@ -2,7 +2,6 @@ package com.example.user01.planit;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class Event implements Parcelable{
 
@@ -20,6 +19,7 @@ public class Event implements Parcelable{
         eventRating = in.readString();
         eventURL = in.readString();
         eventPriceRange = in.readString();
+
     }
 
     public String getEventName() {
@@ -56,7 +56,6 @@ public class Event implements Parcelable{
         dest.writeString(eventRating);
         dest.writeString(eventURL);
         dest.writeString(eventPriceRange);
-        Log.i("info","Write Parcel");
     }
 
     @Override
