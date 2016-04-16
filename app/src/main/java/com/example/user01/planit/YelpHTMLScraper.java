@@ -22,7 +22,7 @@ public class YelpHTMLScraper {
         try {
             doc = Jsoup.connect(businessURL).userAgent("Mozilla").get();
             getHours();
-            priceRange = doc.select("dd.nowrap.price-description").first().text();
+            //priceRange = doc.select("dd.nowrap.price-description").first().text();
             Log.i("info","getHours");
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,10 +35,16 @@ public class YelpHTMLScraper {
         Elements rows = table.select("tbody").select("tr");
 
         for (int i = 0; i < rows.size(); i++) {
-            Element row = rows.get(i);
-            Elements day = row.select("th");
-            Elements time = row.select("td");
-            hours.add(day.get(0).text() + " " + time.get(0).text());
+            if (rows.size() != 0) {
+                Element row = rows.get(i);
+                Elements day = row.select("th");
+                Elements time = row.select("td");
+                if ((day.size() > 0) && (time.size() > 0)) {
+                    hours.add(day.get(0).text() + " " + time.get(0).text());
+                } else {
+                    hours.add("N/A");
+                }
+            }
         }
     }
 
