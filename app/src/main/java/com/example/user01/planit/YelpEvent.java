@@ -11,8 +11,9 @@ public class YelpEvent extends Event {
 
     public YelpEvent(Business b) {
         this.eventName = b.name();
-        this.eventAddress = b.location().address().get(0);
-        this.eventRating = String.valueOf(b.rating());
+        this.eventAddress = b.location().address().get(0) + ", " + b.location().city();
+        this.eventRating = "Rating: "+String.valueOf(b.rating()) + " | " +
+                String.valueOf(b.reviewCount()) + " Ratings";
         this.eventURL = b.url();
         yelpHTMLScraper = new YelpHTMLScraper(eventURL);
         this.eventPriceRange = yelpHTMLScraper.getPriceRange();
