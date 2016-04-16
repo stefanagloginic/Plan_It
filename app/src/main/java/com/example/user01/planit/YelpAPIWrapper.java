@@ -40,14 +40,30 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
             Map<String, String> param = new HashMap<>();
-
+            switch(settings.get(1)) {
+                case "Morning":
+                    param.put("term","Breakfast");
+                    break;
+                case "Afternoon":
+                    param.put("term","Lunch");
+                    break;
+                case "Evening":
+                    param.put("term","Dinner");
+                    break;
+                default:
+                    break;
+            }
             Call<SearchResponse> call = yelpAPI.search(settings.get(0), param);
-
             SearchResponse searchResponse = call.execute().body();
             businesses = searchResponse.businesses();
 
-            int randomNum = (int) (Math.random() * 20);
-            yelpEvents.add(new YelpEvent(businesses.get(randomNum)));
+            if (settings.get(1).equals("All Day")) {
+                for (int i = 0; i < 3; i++) {
+                    yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
+                }
+            } else {
+                yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
