@@ -5,7 +5,7 @@
     <string name="consumer_secret">1jGdVPAVg58iL05c3AJ8nT63iHI</string>
     <string name="token">hJ5_EhNyMQM2FRcUBLAtyy5lHc8lcaFE</string>
     <string name="token_secret">Z4cKpZOCGC8ytwjOWZanM4Bzfqo</string>
-    <string name="location_hint">"Enter location or zip code"</string>
+    <string name="location_hint">"Enter location"</string>
     <string name="plan_it">Plan It!</string>
     <string name="location">Location</string>
     <string name="time_of_day">Time of Day</string>

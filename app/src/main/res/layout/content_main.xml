@@ -11,66 +11,79 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user01.planit.MainActivity"
-    android:weightSum="9"
     >
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1.50" />
+        android:layout_weight="1"/>
 
     <EditText
         android:id="@+id/location_input"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="15dp"
+        android:layout_weight="1"
+        android:ellipsize="start"
+        android:gravity="start|center_vertical"
         android:hint="@string/location_hint"
-        android:textAlignment="center"
+        android:paddingEnd="0dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="0dp"
+        android:paddingStart="16dp"
         android:singleLine="true"
+        android:textSize="16sp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"/>
 
     <Spinner
         android:id="@+id/time_of_day_spinner"
-        android:layout_width="250dp"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="200dp"
         android:layout_height="15dp"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
     </Spinner>
-
-
 
     <Spinner
         android:id="@+id/price_range_spinner"
-        android:layout_width="250dp"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="200dp"
         android:layout_height="15dp"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
     </Spinner>
 
     <Spinner
         android:id="@+id/activity_preferences_spinner"
-        android:layout_width="250dp"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="200dp"
         android:layout_height="15dp"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
     </Spinner>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/generate"
         android:layout_width="150dp"
         android:layout_height="2dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="17dp"
-        android:longClickable="false"
-        android:text="@string/plan_it"
         android:layout_weight="1"
-        android:layout_gravity="center_horizontal" />
+        android:longClickable="false"
+        android:text="@string/plan_it"/>
 
 </LinearLayout>
