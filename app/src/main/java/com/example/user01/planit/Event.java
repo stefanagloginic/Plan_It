@@ -1,14 +1,20 @@
 package com.example.user01.planit;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Event implements Parcelable{
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
+public class Event implements Parcelable{
     protected String eventName;
     protected String eventAddress;
     protected String eventRating;
     protected String eventURL;
+    protected Bitmap eventBitmap;
     protected String eventPriceRange;
 
     public Event() {}
@@ -19,23 +25,20 @@ public class Event implements Parcelable{
         eventRating = in.readString();
         eventURL = in.readString();
         eventPriceRange = in.readString();
-
+        eventBitmap = in.readParcelable(getClass().getClassLoader());
     }
 
     public String getEventName() {
         return eventName;
     }
-
     public String getEventAddress() {
         return eventAddress;
     }
-
     public String getEventRating() {
         return eventRating;
     }
-
     public String getEventURL() { return eventURL; }
-
+    public Bitmap getEventBitmap() {return eventBitmap; }
     public String getEventPriceRange() { return eventPriceRange; }
 
     public static final Parcelable.Creator<Event> CREATOR =
@@ -56,6 +59,7 @@ public class Event implements Parcelable{
         dest.writeString(eventRating);
         dest.writeString(eventURL);
         dest.writeString(eventPriceRange);
+        dest.writeParcelable(eventBitmap,flags);
     }
 
     @Override
