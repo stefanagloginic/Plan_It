@@ -59,7 +59,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             businesses = searchResponse.businesses();
 
             if (settings.get(1).equals("All Day")) {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 3; i++) {
                     yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
                 }
             } else {
