@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
+
         final Spinner timeOfDaySpinner = (Spinner) findViewById(R.id.time_of_day_spinner);
         ArrayAdapter<CharSequence> timeOfDayAdapter =
                 ArrayAdapter.createFromResource(this,
