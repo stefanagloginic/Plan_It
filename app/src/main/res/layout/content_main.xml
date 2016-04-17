@@ -16,11 +16,15 @@
     tools:context="com.example.user01.planit.MainActivity"
     >
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/location_Button"
+        android:layout_width="150dp"
+        android:layout_height="2dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"/>
+        android:layout_marginTop="17dp"
+        android:layout_weight="1"
+        android:longClickable="false"
+        android:text="@string/use_currentLocation"/>
 
     <EditText
         android:id="@+id/location_input"
