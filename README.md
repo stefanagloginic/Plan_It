@@ -1,4 +1,4 @@
-# Plan_It
+# Plan It
 
 The purpose of this Android mobile application is to generate a plan for your day. If you're
 feeling adventurous, "Plan It" will randomly generate a full-day schedule for you
@@ -9,4 +9,4 @@ users with tokens and badges for accomplishing certain tasks. For example, if yo
 successfully checkin to 10 of the suggested events, you can earn a "adventurous
 badge."
 
-Basically, sit back and let Plan It decide what to do on your free day!
+Basically, sit back and let Plan It decide what to do on your free day and earn badges along the way!
