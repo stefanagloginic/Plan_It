@@ -67,5 +67,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     public int getItemCount() {
         return events.size();
     }
+
+    public void remove(int position) {
+        events.remove(position);
+        notifyItemRemoved(position);
+    }
 }
 

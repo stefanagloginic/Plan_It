@@ -14,6 +14,7 @@
     android:weightSum="8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user01.planit.MainActivity"
+    android:background="@drawable/android_mountain"
     >
 
     <Button

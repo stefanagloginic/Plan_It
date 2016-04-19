@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cv"
-    card_view:cardUseCompatPadding="false"
+    card_view:cardUseCompatPadding="true"
     card_view:cardElevation="1dp"
     >
 

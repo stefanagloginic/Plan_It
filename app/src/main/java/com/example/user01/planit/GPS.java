@@ -16,9 +16,6 @@ import com.google.android.gms.location.LocationServices;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Angel on 4/15/2016.
- */
 public class GPS implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
 
