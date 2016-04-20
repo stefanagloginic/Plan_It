@@ -1,5 +1,7 @@
 package com.example.user01.planit;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,10 +25,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private ArrayList<String> settings;
     private ArrayList<Business> businesses;
     private ArrayList<Event> yelpEvents;
+    private ProgressDialog dialog;
 
-    YelpAPIWrapper(Context context, ArrayList<String> settings) {
+    YelpAPIWrapper(Context context, Activity activity, ArrayList<String> settings) {
         this.context = context;
         this.settings = settings;
+        dialog = new ProgressDialog(activity);
         YelpAPIFactory yelpAPIFactory = new YelpAPIFactory(
                 this.context.getString(R.string.consumer_key),
                         this.context.getString(R.string.consumer_secret),
@@ -34,6 +38,14 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                         this.context.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
         yelpEvents = new ArrayList<>();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        this.dialog.setMessage("Loading your day");
+        this.dialog.setCanceledOnTouchOutside(false);
+        this.dialog.setCancelable(false);
+        this.dialog.show();
     }
 
     @Override
@@ -77,7 +89,13 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
         Intent intent = new Intent(context,RecyclerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putParcelableArrayListExtra("events", yelpEvents);
+
+       if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+
         context.startActivity(intent);
+
     }
 
 }
