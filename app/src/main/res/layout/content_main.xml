@@ -17,13 +17,19 @@
     android:background="@drawable/android_mountain"
     >
 
+    <TextView
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvWelcome" />
+
     <Button
         android:id="@+id/location_Button"
         android:layout_width="150dp"
         android:layout_height="2dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="17dp"
-        android:layout_weight="1"
+        android:layout_weight="1.09"
         android:longClickable="false"
         android:text="@string/use_currentLocation"/>
 

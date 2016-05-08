@@ -27,31 +27,42 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     private GPS gps;
     private String currLocation;
     private AlertDialog dialog;
+    private User user;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Accessing Location");
-        dialog = builder.show();
-        TextView messageText = (TextView) dialog.findViewById(android.R.id.message);
-        messageText.setGravity(Gravity.CENTER);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
+        Bundle data = getIntent().getExtras();
+        user = (User) data.getParcelable("user");
+
+        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+        tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_ACCESS_COARSE_LOCATION);
         }
-        //create instance of GPS, immediately tries to obtain user location
-        gps = new GPS(this);
-        //add MainActivity to list of Listeners for gps
-        gps.addGPSListener(this);
-        //start gps services
-        gps.connect();
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Accessing Location");
+            dialog = builder.show();
+            TextView messageText = (TextView) dialog.findViewById(android.R.id.message);
+            messageText.setGravity(Gravity.CENTER);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+
+            //create instance of GPS, immediately tries to obtain user location
+            gps = new GPS(this);
+            //add MainActivity to list of Listeners for gps
+            gps.addGPSListener(this);
+            //start gps services
+            gps.connect();
+        }
 
 
         final Spinner timeOfDaySpinner = (Spinner) findViewById(R.id.time_of_day_spinner);
@@ -119,7 +130,20 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         switch (requestCode) {
             case PERMISSION_ACCESS_COARSE_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // All good!
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("Accessing Location");
+                    dialog = builder.show();
+                    TextView messageText = (TextView) dialog.findViewById(android.R.id.message);
+                    messageText.setGravity(Gravity.CENTER);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setCancelable(false);
+
+                    //create instance of GPS, immediately tries to obtain user location
+                    gps = new GPS(this);
+                    //add MainActivity to list of Listeners for gps
+                    gps.addGPSListener(this);
+                    //start gps services
+                    gps.connect();
                 } else {
                     Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
                 }
