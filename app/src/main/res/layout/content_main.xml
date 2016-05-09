@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -11,90 +12,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"
     android:weightSum="8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user01.planit.MainActivity"
-    android:background="@drawable/android_mountain"
     >
 
-    <TextView
-        android:layout_width="311dp"
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        android:id="@+id/progress_circle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/tvWelcome" />
+        android:layout_centerInParent="true"
+        android:background="@drawable/plan_it_icon"
+        app:paddingEnd="@dimen/activity_horizontal_margin"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"
+        app:cpv_thickness="15dp"
+        app:cpv_animSteps="3"
+        app:cpv_color="#2196F3"
+        app:cpv_animDuration="7000"
+        />
 
-    <Button
-        android:id="@+id/location_Button"
-        android:layout_width="150dp"
-        android:layout_height="2dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="17dp"
-        android:layout_weight="1.09"
-        android:longClickable="false"
-        android:text="@string/use_currentLocation"/>
-
-    <EditText
-        android:id="@+id/location_input"
-        android:layout_width="200dp"
-        android:layout_height="15dp"
-        android:layout_weight="1"
-        android:ellipsize="start"
-        android:gravity="start|center_vertical"
-        android:hint="@string/location_hint"
-        android:paddingEnd="0dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="0dp"
-        android:paddingStart="16dp"
-        android:singleLine="true"
-        android:textSize="16sp"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"/>
-
-    <Spinner
-        android:id="@+id/time_of_day_spinner"
-        style="@android:style/Widget.Holo.Light.Spinner"
-        android:layout_width="200dp"
-        android:layout_height="15dp"
-        android:layout_weight="1"
-        >
-    </Spinner>
-
-    <Spinner
-        android:id="@+id/price_range_spinner"
-        style="@android:style/Widget.Holo.Light.Spinner"
-        android:layout_width="200dp"
-        android:layout_height="15dp"
-        android:layout_weight="1"
-        >
-    </Spinner>
-
-    <Spinner
-        android:id="@+id/activity_preferences_spinner"
-        style="@android:style/Widget.Holo.Light.Spinner"
-        android:layout_width="200dp"
-        android:layout_height="15dp"
-        android:layout_weight="1"
-        >
-    </Spinner>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/generate"
-        android:layout_width="150dp"
-        android:layout_height="2dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="17dp"
-        android:layout_weight="1"
-        android:longClickable="false"
-        android:text="@string/plan_it"/>
-
-</LinearLayout>
+</RelativeLayout>

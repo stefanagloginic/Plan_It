@@ -2,11 +2,11 @@ package com.example.user01.planit;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
@@ -17,35 +17,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit.Call;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
-    private Context context;
+    private Activity activity;
     private YelpAPI yelpAPI;
     private ArrayList<String> settings;
     private ArrayList<Business> businesses;
     private ArrayList<Event> yelpEvents;
     private ProgressDialog dialog;
+    private CircularProgressView cpv;
 
-    YelpAPIWrapper(Context context, Activity activity, ArrayList<String> settings) {
-        this.context = context;
+    YelpAPIWrapper(Activity activity, ArrayList<String> settings) {
+        this.activity = activity;
         this.settings = settings;
         dialog = new ProgressDialog(activity);
         YelpAPIFactory yelpAPIFactory = new YelpAPIFactory(
-                this.context.getString(R.string.consumer_key),
-                        this.context.getString(R.string.consumer_secret),
-                        this.context.getString(R.string.token),
-                        this.context.getString(R.string.token_secret));
+                activity.getString(R.string.consumer_key),
+                        activity.getString(R.string.consumer_secret),
+                        activity.getString(R.string.token),
+                        activity.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
         yelpEvents = new ArrayList<>();
     }
 
     @Override
     protected void onPreExecute() {
-        this.dialog.setMessage("Loading your day");
-        this.dialog.setCanceledOnTouchOutside(false);
-        this.dialog.setCancelable(false);
-        this.dialog.show();
+        cpv = (CircularProgressView) this.activity.findViewById(R.id.progress_circle);
+//        this.dialog.setMessage("Loading your day");
+//        this.dialog.setCanceledOnTouchOutside(false);
+//        this.dialog.setCancelable(false);
+//        this.dialog.show();
     }
 
     @Override
@@ -65,9 +69,9 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                 default:
                     break;
             }
-            
-            Call<SearchResponse> call = yelpAPI.search(settings.get(0), param);
-            SearchResponse searchResponse = call.execute().body();
+
+            retrofit.Call<SearchResponse> searchResponseCall = yelpAPI.search(settings.get(0), param);
+            SearchResponse searchResponse = searchResponseCall.execute().body();
             businesses = searchResponse.businesses();
 
             if (settings.get(1).equals("All Day")) {
@@ -77,6 +81,19 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             } else {
                 yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
             }
+            Retrofit client = new Retrofit
+                    .Builder()
+                    .baseUrl("http://api.eventful.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
+            Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
+            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
+            for (int i = 0; i < 3; i++) {
+                eventfulEvents.get(i).setEventVariables();
+                yelpEvents.add(eventfulEvents.get(i));
+            }
+            Log.i("info","eventName");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,16 +103,16 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Log.i("info", "After while loop");
-        Intent intent = new Intent(context,RecyclerActivity.class);
+        Intent intent = new Intent(activity,RecyclerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putParcelableArrayListExtra("events", yelpEvents);
 
-       if (dialog.isShowing()) {
-            dialog.dismiss();
-        }
+//       if (dialog.isShowing()) {
+//            dialog.dismiss();
+//        }
 
-        context.startActivity(intent);
-
+        activity.startActivity(intent);
+        cpv.stopAnimation();
     }
 
 }
