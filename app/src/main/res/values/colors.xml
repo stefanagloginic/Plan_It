@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:app="http://schemas.android.com/tools">
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="green">#147E00</color>
+    <color name="green">#1b5e20</color>
+    <color name="progressBarColor">#1b5e20</color>
+    <color name ="backgroundProgressBarColor">#81c784</color>
+    <dimen name="progressBarWidth">20dp</dimen>
+    <dimen name="backgroundProgressBarWidth">10dp</dimen>
+
 </resources>

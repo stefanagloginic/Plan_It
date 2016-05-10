@@ -25,7 +25,9 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private Activity activity;
     private YelpAPI yelpAPI;
     private ArrayList<String> settings;
-    private ArrayList<Business> businesses;
+    private ArrayList<Business> breakfast;
+    private ArrayList<Business> lunch;
+    private ArrayList<Business> dinner;
     private ArrayList<Event> yelpEvents;
     private ProgressDialog dialog;
     private CircularProgressView cpv;
@@ -55,18 +57,48 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Map<String, String> param = new HashMap<>();
+            Map<String, String> mornparam = new HashMap<>();
+            Map<String, String> noonparam = new HashMap<>();
+            Map<String, String> evenparam = new HashMap<>();
+            mornparam.put("term", "Breakfast");
+            noonparam.put("term", "Lunch");
+            evenparam.put("term", "Dinner");
+
             switch(settings.get(1)) {
                 case "Morning":
-                    param.put("term","Breakfast");
+                    Call<SearchResponse> call = yelpAPI.search(settings.get(0), mornparam);
+                    SearchResponse morningResponse = call.execute().body();
+                    breakfast = morningResponse.businesses();
+                    yelpEvents.add(new YelpEvent(breakfast.get((int) (Math.random() * 20))));
                     break;
                 case "Afternoon":
-                    param.put("term","Lunch");
+                    call = yelpAPI.search(settings.get(0), noonparam);
+                    SearchResponse noonResponse = call.execute().body();
+                    lunch = noonResponse.businesses();
+                    yelpEvents.add(new YelpEvent(lunch.get((int) (Math.random() * 20))));
                     break;
                 case "Evening":
-                    param.put("term","Dinner");
+                    call = yelpAPI.search(settings.get(0), evenparam);
+                    SearchResponse eveningResponse = call.execute().body();
+                    dinner = eveningResponse.businesses();
+                    yelpEvents.add(new YelpEvent(dinner.get((int) (Math.random() * 20))));
                     break;
                 default:
+                    call = yelpAPI.search(settings.get(0), mornparam);
+                    morningResponse = call.execute().body();
+
+                    call = yelpAPI.search(settings.get(0), noonparam);
+                    noonResponse = call.execute().body();
+
+                    call = yelpAPI.search(settings.get(0), evenparam);
+                    eveningResponse = call.execute().body();
+
+                    breakfast = morningResponse.businesses();
+                    lunch = noonResponse.businesses();
+                    dinner = eveningResponse.businesses();
+                    yelpEvents.add(new YelpEvent(breakfast.get((int) (Math.random() * 20))));
+                    yelpEvents.add(new YelpEvent(lunch.get((int) (Math.random() * 20))));
+                    yelpEvents.add(new YelpEvent(dinner.get((int) (Math.random() * 20))));
                     break;
             }
 
