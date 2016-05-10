@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#9ACEFF"
     tools:context="com.example.angel.loginregister.RegisterActivity">
 
     <EditText
@@ -21,7 +22,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"
+        android:layout_marginBottom="1dp"
+    />
 
     <EditText
         android:layout_width="wrap_content"
@@ -31,9 +38,14 @@
         android:layout_below="@+id/etFirstName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="50dp"
         android:layout_alignRight="@+id/etLastName"
-        android:layout_alignEnd="@+id/etLastName" />
+        android:layout_alignEnd="@+id/etLastName"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"
+        android:layout_marginBottom="1dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,7 +58,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"
+        android:layout_marginBottom="1dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,7 +76,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etPassword"
-        android:layout_alignEnd="@+id/etPassword" />
+        android:layout_alignEnd="@+id/etPassword"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -70,7 +91,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etAge"
-        android:layout_alignEnd="@+id/etAge" />
+        android:layout_alignEnd="@+id/etAge"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -81,5 +103,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etFirstName"
         android:layout_alignEnd="@+id/etFirstName"
-        android:hint="Last Name" />
+        android:hint="Last Name"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"/>
 </RelativeLayout>
