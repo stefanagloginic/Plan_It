@@ -1,7 +1,10 @@
 package com.example.user01.planit;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -68,7 +72,18 @@ public class RegisterActivity extends AppCompatActivity {
                     }
 
                 };
-                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, age, password, responseListener);
+
+                Response.ErrorListener errorListener = new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setMessage("Failed no internet access!")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+                };
+                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, age, password, responseListener, errorListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
