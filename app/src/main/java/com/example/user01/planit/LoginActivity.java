@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/plan.ttf")
+                .setDefaultFontPath("fonts/RobotoL.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

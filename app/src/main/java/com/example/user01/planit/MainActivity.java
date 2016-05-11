@@ -2,19 +2,27 @@ package com.example.user01.planit;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements GPSListener {
     private YelpAPIWrapper yelpAPIWrapper;
@@ -28,13 +36,22 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.content_main);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/RobotoL.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         Bundle data = getIntent().getExtras();
         user = (User) data.getParcelable("user");
 
         final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
         tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -120,6 +137,11 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

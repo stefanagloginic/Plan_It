@@ -43,7 +43,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"
-
+        fontPath="fonts/RobotoL.ttf"
         />
 
     <EditText
@@ -62,7 +62,8 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="#FFFFFF"
-        android:paddingLeft="8dp"/>
+        android:paddingLeft="8dp"
+        fontPath="fonts/RobotoL.ttf"/>
 
     <TextView
 
@@ -74,7 +75,8 @@
         android:id="@+id/tvRegister"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="18dp"
+        fontPath="fonts/RobotoL.ttf"
        />
 
     <Button
@@ -88,7 +90,8 @@
         android:layout_alignRight="@+id/etPassword"
         android:layout_alignEnd="@+id/etPassword"
         android:layout_marginTop="20dp"
-        android:singleLine="false" />
+        android:singleLine="false"
+        fontPath="fonts/Roboto-Condensed.ttf"/>
 
 
 

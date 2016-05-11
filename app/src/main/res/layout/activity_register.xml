@@ -8,7 +8,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#9ACEFF"
-    tools:context="com.example.angel.loginregister.RegisterActivity">
+    tools:context="com.example.angel.loginregister.RegisterActivity"
+    tools:ignore="MissingPrefix"
+    >
+
+    <TextView
+        fontPath="fonts/plan.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Plan it "
+        android:textColor="#FFFFFF"
+        android:id="@+id/title"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="70dp"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,6 +33,7 @@
         android:id="@+id/etFirstName"
         android:singleLine="true"
         android:hint="First Name"
+        fontPath="fonts/RobotoL.ttf"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -28,6 +44,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"
         android:layout_marginBottom="1dp"
+        android:layout_marginTop="100dp"
     />
 
     <EditText
@@ -35,6 +52,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etUserName"
         android:hint="Username"
+        fontPath="fonts/RobotoL.ttf"
         android:layout_below="@+id/etFirstName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -54,6 +72,7 @@
         android:ems="10"
         android:id="@+id/etPassword"
         android:hint="Password"
+        fontPath="fonts/RobotoL.ttf"
         android:layout_below="@+id/etUserName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -72,6 +91,7 @@
         android:ems="10"
         android:id="@+id/etAge"
         android:hint="Age"
+        fontPath="fonts/RobotoL.ttf"
         android:layout_below="@+id/etPassword"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -86,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register Account"
+        fontPath="fonts/Roboto-Condensed.ttf"
         android:id="@+id/bRegister"
         android:layout_below="@+id/etAge"
         android:layout_alignParentLeft="true"
@@ -104,8 +125,10 @@
         android:layout_alignRight="@+id/etFirstName"
         android:layout_alignEnd="@+id/etFirstName"
         android:hint="Last Name"
+        fontPath="fonts/RobotoL.ttf"
         android:background="#FFFFFF"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"/>
+
 </RelativeLayout>
