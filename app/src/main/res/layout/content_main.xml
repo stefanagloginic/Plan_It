@@ -18,6 +18,12 @@
     tools:context="com.example.user01.planit.MainActivity"
     >
 
+    <TextView
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvWelcome" />
+
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         android:id="@+id/progress_circle"
         android:layout_width="wrap_content"
@@ -27,9 +33,9 @@
         app:paddingEnd="@dimen/activity_horizontal_margin"
         app:cpv_animAutostart="true"
         app:cpv_indeterminate="true"
-        app:cpv_thickness="15dp"
+        app:cpv_thickness="10dp"
         app:cpv_animSteps="3"
-        app:cpv_color="#2196F3"
+        app:cpv_color= "#2196F3"
         app:cpv_animDuration="7000"
         />
 

@@ -2,10 +2,8 @@ package com.example.user01.planit;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -16,7 +14,6 @@ public class RecyclerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("info", "Kevin");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_activity);
 

@@ -2,17 +2,14 @@ package com.example.user01.planit;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.yelp.clientlib.entities.Business;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class YelpEvent extends Event {
@@ -30,7 +27,6 @@ public class YelpEvent extends Event {
         this.eventPriceRange = yelpHTMLScraper.getPriceRange();
         this.eventHours = getBusinessHours();
     }
-
 
     public String getBusinessHours() {
         String businessHours = "";

@@ -2,20 +2,12 @@ package com.example.user01.planit;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         setContentView(R.layout.content_main);
 
         Bundle data = getIntent().getExtras();
-        user = (User) data.getParcelable("user");
+        user = data.getParcelable("user");
 
-//        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
-//        tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+        tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -87,41 +79,6 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 //                        R.layout.spinner_center_dropdown);
 //        activityPreferencesAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
 //        activityPreferencesSpinner.setAdapter(activityPreferencesAdapter);
-//
-//        Button generateButton = (Button) findViewById(R.id.generate);
-//        generateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EditText locationInput = (EditText) findViewById(R.id.location_input);
-//                String location = locationInput.getText().toString();
-//                String timeOfDay = timeOfDaySpinner.getSelectedItem().toString();
-//                String priceRange = priceRangeSpinner.getSelectedItem().toString();
-//                String activityPreference = activityPreferencesSpinner.getSelectedItem().toString();
-//                ArrayList<String> settings = new ArrayList<>();
-//                settings.add(location);
-//                settings.add(timeOfDay);
-//                settings.add(priceRange);
-//                settings.add(activityPreference);
-//                yelpAPIWrapper = new YelpAPIWrapper(getBaseContext(), MainActivity.this, settings);
-//                yelpAPIWrapper.execute();
-//            }
-//        });
-//
-//        //Generate schedule with location acquired by GPS
-//        Button generateLocationButton = (Button) findViewById(R.id.location_Button);
-//        generateLocationButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EditText locationInput = (EditText) findViewById(R.id.location_input);
-//                if(gps.getAddressFailed()) {
-//                    locationInput.setHint("Location not found");
-//                }
-//                else{
-//                    locationInput.setText(gps.getLocation());
-//                }
-//            }
-//        });
-//    }
     }
 
     @Override

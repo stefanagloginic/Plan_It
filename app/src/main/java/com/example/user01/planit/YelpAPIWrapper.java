@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.yelp.clientlib.connection.YelpAPI;
@@ -126,7 +125,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.i("info", "After while loop");
         Intent intent = new Intent(activity,RecyclerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putParcelableArrayListExtra("breakfast", breakfastEvents);
@@ -134,7 +132,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
         intent.putParcelableArrayListExtra("dinner", dinnerEvents);
 
         activity.startActivity(intent);
-        Log.i("info", "FUUUUCK");
         cpv.stopAnimation();
     }
 
