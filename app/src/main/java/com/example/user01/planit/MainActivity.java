@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         setContentView(R.layout.content_main);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/RobotoL.ttf")
+                        .setDefaultFontPath("fonts/Roboto-Condensed.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );

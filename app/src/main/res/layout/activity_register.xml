@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#9ACEFF"
+    android:background="@color/colorPrimary"
     tools:context="com.example.angel.loginregister.RegisterActivity"
     tools:ignore="MissingPrefix"
     >
@@ -18,11 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Plan it "
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:id="@+id/title"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
         android:textSize="70dp"
+        android:singleLine="true"
         />
 
     <EditText
@@ -39,7 +40,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"
@@ -59,11 +60,12 @@
         android:layout_marginTop="50dp"
         android:layout_alignRight="@+id/etLastName"
         android:layout_alignEnd="@+id/etLastName"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"
-        android:layout_marginBottom="1dp"/>
+        android:layout_marginBottom="1dp"
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -78,11 +80,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="8dp"
-        android:layout_marginBottom="1dp"/>
+        android:layout_marginBottom="1dp"
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -97,14 +100,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etPassword"
         android:layout_alignEnd="@+id/etPassword"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="8dp"/>
+        android:paddingLeft="8dp"
+        android:singleLine="true"/>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:text="Register Account"
         fontPath="fonts/Roboto-Condensed.ttf"
         android:id="@+id/bRegister"
@@ -113,6 +117,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etAge"
         android:layout_alignEnd="@+id/etAge"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:textSize="7pt"
         />
 
     <EditText
@@ -126,9 +134,10 @@
         android:layout_alignEnd="@+id/etFirstName"
         android:hint="Last Name"
         fontPath="fonts/RobotoL.ttf"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="8dp"/>
+        android:paddingLeft="8dp"
+        android:singleLine="true"/>
 
 </RelativeLayout>
