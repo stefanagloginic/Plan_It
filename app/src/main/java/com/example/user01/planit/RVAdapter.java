@@ -26,6 +26,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         TextView eventAddress;
         TextView eventRating;
         TextView eventPriceRange;
+        TextView eventHours;
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -34,7 +35,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             eventName = (TextView)itemView.findViewById(R.id.event_name);
             eventAddress = (TextView)itemView.findViewById(R.id.event_address);
             eventRating = (TextView)itemView.findViewById(R.id.event_rating);
-            eventPriceRange = (TextView)itemView.findViewById(R.id.event_price_range);
+//            eventPriceRange = (TextView)itemView.findViewById(R.id.event_price_range);
+//            eventHours = (TextView)itemView.findViewById(R.id.event_hours);
         }
     }
 
@@ -60,7 +62,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         eventViewHolder.eventName.setText(events.get(i).getEventName());
         eventViewHolder.eventAddress.setText(events.get(i).getEventAddress());
         eventViewHolder.eventRating.setText(events.get(i).getEventRating());
-        eventViewHolder.eventPriceRange.setText(events.get(i).getEventPriceRange());
+//        eventViewHolder.eventPriceRange.setText(events.get(i).getEventPriceRange());
+//        eventViewHolder.eventHours.setText(events.get(i).getEventHours());
     }
 
     @Override
@@ -72,5 +75,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         events.remove(position);
         notifyItemRemoved(position);
     }
+
 }
 

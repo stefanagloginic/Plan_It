@@ -37,17 +37,15 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         Bundle data = getIntent().getExtras();
         user = (User) data.getParcelable("user");
 
-        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
-        tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
-
+//        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+//        tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_ACCESS_COARSE_LOCATION);
-        }
-        else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Accessing Location");
             dialog = builder.show();
@@ -65,64 +63,65 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         }
 
 
-        final Spinner timeOfDaySpinner = (Spinner) findViewById(R.id.time_of_day_spinner);
-        ArrayAdapter<CharSequence> timeOfDayAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.time_of_day_choices,
-                        R.layout.spinner_center_dropdown);
-        timeOfDayAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        timeOfDaySpinner.setAdapter(timeOfDayAdapter);
-
-        final Spinner priceRangeSpinner = (Spinner) findViewById(R.id.price_range_spinner);
-        ArrayAdapter<CharSequence> priceRangeAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.price_range_choices,
-                        R.layout.spinner_center_dropdown);
-        priceRangeAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        priceRangeSpinner.setAdapter(priceRangeAdapter);
-
-        final Spinner activityPreferencesSpinner =
-                (Spinner) findViewById(R.id.activity_preferences_spinner);
-        ArrayAdapter<CharSequence> activityPreferencesAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.activity_preferences_choices,
-                        R.layout.spinner_center_dropdown);
-        activityPreferencesAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        activityPreferencesSpinner.setAdapter(activityPreferencesAdapter);
-
-        Button generateButton = (Button) findViewById(R.id.generate);
-        generateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText locationInput = (EditText) findViewById(R.id.location_input);
-                String location = locationInput.getText().toString();
-                String timeOfDay = timeOfDaySpinner.getSelectedItem().toString();
-                String priceRange = priceRangeSpinner.getSelectedItem().toString();
-                String activityPreference = activityPreferencesSpinner.getSelectedItem().toString();
-                ArrayList<String> settings = new ArrayList<>();
-                settings.add(location);
-                settings.add(timeOfDay);
-                settings.add(priceRange);
-                settings.add(activityPreference);
-                yelpAPIWrapper = new YelpAPIWrapper(getBaseContext(), MainActivity.this, settings);
-                yelpAPIWrapper.execute();
-            }
-        });
-
-        //Generate schedule with location acquired by GPS
-        Button generateLocationButton = (Button) findViewById(R.id.location_Button);
-        generateLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText locationInput = (EditText) findViewById(R.id.location_input);
-                if(gps.getAddressFailed()) {
-                    locationInput.setHint("Location not found");
-                }
-                else{
-                    locationInput.setText(gps.getLocation());
-                }
-            }
-        });
+//        final Spinner timeOfDaySpinner = (Spinner) findViewById(R.id.time_of_day_spinner);
+//        ArrayAdapter<CharSequence> timeOfDayAdapter =
+//                ArrayAdapter.createFromResource(this,
+//                        R.array.time_of_day_choices,
+//                        R.layout.spinner_center_dropdown);
+//        timeOfDayAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
+//        timeOfDaySpinner.setAdapter(timeOfDayAdapter);
+//
+//        final Spinner priceRangeSpinner = (Spinner) findViewById(R.id.price_range_spinner);
+//        ArrayAdapter<CharSequence> priceRangeAdapter =
+//                ArrayAdapter.createFromResource(this,
+//                        R.array.price_range_choices,
+//                        R.layout.spinner_center_dropdown);
+//        priceRangeAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
+//        priceRangeSpinner.setAdapter(priceRangeAdapter);
+//
+//        final Spinner activityPreferencesSpinner =
+//                (Spinner) findViewById(R.id.activity_preferences_spinner);
+//        ArrayAdapter<CharSequence> activityPreferencesAdapter =
+//                ArrayAdapter.createFromResource(this,
+//                        R.array.activity_preferences_choices,
+//                        R.layout.spinner_center_dropdown);
+//        activityPreferencesAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
+//        activityPreferencesSpinner.setAdapter(activityPreferencesAdapter);
+//
+//        Button generateButton = (Button) findViewById(R.id.generate);
+//        generateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText locationInput = (EditText) findViewById(R.id.location_input);
+//                String location = locationInput.getText().toString();
+//                String timeOfDay = timeOfDaySpinner.getSelectedItem().toString();
+//                String priceRange = priceRangeSpinner.getSelectedItem().toString();
+//                String activityPreference = activityPreferencesSpinner.getSelectedItem().toString();
+//                ArrayList<String> settings = new ArrayList<>();
+//                settings.add(location);
+//                settings.add(timeOfDay);
+//                settings.add(priceRange);
+//                settings.add(activityPreference);
+//                yelpAPIWrapper = new YelpAPIWrapper(getBaseContext(), MainActivity.this, settings);
+//                yelpAPIWrapper.execute();
+//            }
+//        });
+//
+//        //Generate schedule with location acquired by GPS
+//        Button generateLocationButton = (Button) findViewById(R.id.location_Button);
+//        generateLocationButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText locationInput = (EditText) findViewById(R.id.location_input);
+//                if(gps.getAddressFailed()) {
+//                    locationInput.setHint("Location not found");
+//                }
+//                else{
+//                    locationInput.setText(gps.getLocation());
+//                }
+//            }
+//        });
+//    }
     }
 
     @Override
@@ -178,17 +177,17 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         dialog.dismiss();
         Toast.makeText(MainActivity.this, "Success, now loading your day", Toast.LENGTH_SHORT).show();
 
-        yelpAPIWrapper = new YelpAPIWrapper(getBaseContext(), this,  settings);
+        yelpAPIWrapper = new YelpAPIWrapper(this,  settings);
         yelpAPIWrapper.execute();
     }
 
     @Override
     public void onGPSFailure(GPSEvent e){
-        dialog.dismiss();
-        Button generateLocationButton = (Button) findViewById(R.id.location_Button);
-        generateLocationButton.setClickable(false);
-        generateLocationButton.setAlpha(.5f);
-        dialog.dismiss();
+//        dialog.dismiss();
+//        Button generateLocationButton = (Button) findViewById(R.id.location_Button);
+//        generateLocationButton.setClickable(false);
+//        generateLocationButton.setAlpha(.5f);
+//        dialog.dismiss();
         Toast.makeText(MainActivity.this, "Failed to find location", Toast.LENGTH_SHORT).show();
     }
 

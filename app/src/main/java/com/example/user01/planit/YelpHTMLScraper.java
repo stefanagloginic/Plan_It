@@ -67,7 +67,7 @@ public class YelpHTMLScraper {
         else if (dayOfWeek.toLowerCase().contains("satur"))
             return 5;
         else
-            return  6;
+            return 6;
     }
 
     public String getPriceRange() {

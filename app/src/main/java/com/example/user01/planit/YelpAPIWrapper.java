@@ -17,18 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit.Call;
 
 public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private Activity activity;
     private YelpAPI yelpAPI;
     private ArrayList<String> settings;
-    private ArrayList<Business> breakfast;
-    private ArrayList<Business> lunch;
-    private ArrayList<Business> dinner;
-    private ArrayList<Event> yelpEvents;
+    private ArrayList<Event> breakfastEvents;
+    private ArrayList<Event> lunchEvents;
+    private ArrayList<Event> dinnerEvents;
     private ProgressDialog dialog;
     private CircularProgressView cpv;
 
@@ -42,7 +39,9 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                         activity.getString(R.string.token),
                         activity.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
-        yelpEvents = new ArrayList<>();
+        breakfastEvents = new ArrayList<>();
+        lunchEvents = new ArrayList<>();
+        dinnerEvents = new ArrayList<>();
     }
 
     @Override
@@ -63,25 +62,27 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             mornparam.put("term", "Breakfast");
             noonparam.put("term", "Lunch");
             evenparam.put("term", "Dinner");
+            Call<SearchResponse> call;
 
+            ArrayList<Business> breakfast, lunch, dinner;
             switch(settings.get(1)) {
                 case "Morning":
-                    Call<SearchResponse> call = yelpAPI.search(settings.get(0), mornparam);
+                    call = yelpAPI.search(settings.get(0), mornparam);
                     SearchResponse morningResponse = call.execute().body();
                     breakfast = morningResponse.businesses();
-                    yelpEvents.add(new YelpEvent(breakfast.get((int) (Math.random() * 20))));
+                    breakfastEvents.add(new YelpEvent(breakfast.get((int) (Math.random() * 20))));
                     break;
                 case "Afternoon":
                     call = yelpAPI.search(settings.get(0), noonparam);
                     SearchResponse noonResponse = call.execute().body();
                     lunch = noonResponse.businesses();
-                    yelpEvents.add(new YelpEvent(lunch.get((int) (Math.random() * 20))));
+                    lunchEvents.add(new YelpEvent(lunch.get((int) (Math.random() * 20))));
                     break;
                 case "Evening":
                     call = yelpAPI.search(settings.get(0), evenparam);
                     SearchResponse eveningResponse = call.execute().body();
                     dinner = eveningResponse.businesses();
-                    yelpEvents.add(new YelpEvent(dinner.get((int) (Math.random() * 20))));
+                    dinnerEvents.add(new YelpEvent(dinner.get((int) (Math.random() * 20))));
                     break;
                 default:
                     call = yelpAPI.search(settings.get(0), mornparam);
@@ -96,36 +97,27 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     breakfast = morningResponse.businesses();
                     lunch = noonResponse.businesses();
                     dinner = eveningResponse.businesses();
-                    yelpEvents.add(new YelpEvent(breakfast.get((int) (Math.random() * 20))));
-                    yelpEvents.add(new YelpEvent(lunch.get((int) (Math.random() * 20))));
-                    yelpEvents.add(new YelpEvent(dinner.get((int) (Math.random() * 20))));
+                    for (int i = 0; i < 4; i++) {
+                        int random = (int) (Math.random() * 20);
+                        breakfastEvents.add(new YelpEvent(breakfast.get(random)));
+                        lunchEvents.add(new YelpEvent(lunch.get(random)));
+                        dinnerEvents.add(new YelpEvent(dinner.get(random)));
+                    }
                     break;
             }
-
-            retrofit.Call<SearchResponse> searchResponseCall = yelpAPI.search(settings.get(0), param);
-            SearchResponse searchResponse = searchResponseCall.execute().body();
-            businesses = searchResponse.businesses();
-
-            if (settings.get(1).equals("All Day")) {
-                for (int i = 0; i < 3; i++) {
-                    yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
-                }
-            } else {
-                yelpEvents.add(new YelpEvent(businesses.get((int) (Math.random() * 20))));
-            }
-            Retrofit client = new Retrofit
-                    .Builder()
-                    .baseUrl("http://api.eventful.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
-            Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
-            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
-            for (int i = 0; i < 3; i++) {
-                eventfulEvents.get(i).setEventVariables();
-                yelpEvents.add(eventfulEvents.get(i));
-            }
-            Log.i("info","eventName");
+//            Retrofit client = new Retrofit
+//                    .Builder()
+//                    .baseUrl("http://api.eventful.com/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
+//            Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
+//            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
+//            for (int i = 0; i < 3; i++) {
+//                eventfulEvents.get(i).setEventVariables();
+//                yelpEvents.add(eventfulEvents.get(i));
+//            }
+//            Log.i("info","eventName");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,13 +129,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
         Log.i("info", "After while loop");
         Intent intent = new Intent(activity,RecyclerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putParcelableArrayListExtra("events", yelpEvents);
-
-//       if (dialog.isShowing()) {
-//            dialog.dismiss();
-//        }
+        intent.putParcelableArrayListExtra("breakfast", breakfastEvents);
+        intent.putParcelableArrayListExtra("lunch", lunchEvents);
+        intent.putParcelableArrayListExtra("dinner", dinnerEvents);
 
         activity.startActivity(intent);
+        Log.i("info", "FUUUUCK");
         cpv.stopAnimation();
     }
 

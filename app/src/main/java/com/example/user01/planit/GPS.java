@@ -120,11 +120,8 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     public String getLocation(){
         return location;
     }
-
     public boolean getAddressFailed(){
         return addressFailed;
     }
-
-
 }
 

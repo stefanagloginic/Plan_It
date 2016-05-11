@@ -16,6 +16,7 @@ public class Event implements Parcelable{
     protected String eventURL;
     protected Bitmap eventBitmap;
     protected String eventPriceRange;
+    protected String eventHours;
 
     public Event() {}
 
@@ -26,6 +27,7 @@ public class Event implements Parcelable{
         eventURL = in.readString();
         eventPriceRange = in.readString();
         eventBitmap = in.readParcelable(getClass().getClassLoader());
+        eventHours = in.readString();
     }
 
     public String getEventName() {
@@ -40,6 +42,7 @@ public class Event implements Parcelable{
     public String getEventURL() { return eventURL; }
     public Bitmap getEventBitmap() {return eventBitmap; }
     public String getEventPriceRange() { return eventPriceRange; }
+    public String getEventHours() { return eventHours; }
 
     public static final Parcelable.Creator<Event> CREATOR =
             new Parcelable.Creator<Event>() {
@@ -60,6 +63,7 @@ public class Event implements Parcelable{
         dest.writeString(eventURL);
         dest.writeString(eventPriceRange);
         dest.writeParcelable(eventBitmap,flags);
+        dest.writeString(eventHours);
     }
 
     @Override
