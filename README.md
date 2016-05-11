@@ -10,3 +10,11 @@ successfully checkin to 10 of the suggested events, you can earn a "adventurous
 badge."
 
 Basically, sit back and let Plan It decide what to do on your free day and earn badges along the way!
+
+## Instructions on how to run the app
+1. Pull the code from the github and build the project by going to Build > Clean Project
+2. Next run the app by either clicking the the green play button or by going to Run > Run 'app"
+3. There will be a pop up asking whether you want to run the app on a physical phone or using the built in emulator. Follow these instructions [here](http://developer.android.com/training/basics/firstapp/running-app.html) to get it set up. Once you've chosen your choice click 'ok'
+4. The first page you should see is the login screen and either login with an existing account or register a new one and then log in
+5. After you log in, it will take you to a new screen with a loading circle. It may take a while to finish loading.
+6. Once it finished loading it should take you to a new screen with 3 cards.
