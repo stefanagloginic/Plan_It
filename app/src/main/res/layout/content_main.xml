@@ -12,7 +12,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/white"
+    android:background="@color/grey"
     android:weightSum="8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user01.planit.MainActivity"
@@ -21,18 +21,24 @@
     >
 
     <TextView
-        android:layout_width="311dp"
+        fontPath="fonts/plan.ttf"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:text="Plan it "
+        android:textSize="70dp"
         android:id="@+id/tvWelcome" />
+
+
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         android:id="@+id/progress_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/tvWelcome"
+        android:layout_centerVertical="true"
         android:background="@drawable/plan_it_icon"
-        app:paddingEnd="@dimen/activity_horizontal_margin"
         android:layout_centerHorizontal="true"
         app:cpv_animAutostart="false"
         app:cpv_indeterminate="true"
@@ -40,6 +46,8 @@
         app:cpv_animSteps="3"
         app:cpv_color= "@color/colorPrimary"
         app:cpv_animDuration="7000"
-        android:clickable="true" />
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true" />
 
 </RelativeLayout>
