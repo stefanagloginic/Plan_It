@@ -23,6 +23,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
         android:textSize="70dp"
+        android:singleLine="true"
         />
 
 
