@@ -1,24 +1,18 @@
 package com.example.user01.planit;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+
 import java.util.ArrayList;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -46,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         );
 
         Bundle data = getIntent().getExtras();
-        user = (User) data.getParcelable("user");
+        user = data.getParcelable("user");
 
         final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
         tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
@@ -58,33 +52,6 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_ACCESS_COARSE_LOCATION);
         }
-
-
-    /*    final Spinner timeOfDaySpinner = (Spinner) findViewById(R.id.time_of_day_spinner);
-        ArrayAdapter<CharSequence> timeOfDayAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.time_of_day_choices,
-                        R.layout.spinner_center_dropdown);
-        timeOfDayAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        timeOfDaySpinner.setAdapter(timeOfDayAdapter);
-
-        final Spinner priceRangeSpinner = (Spinner) findViewById(R.id.price_range_spinner);
-        ArrayAdapter<CharSequence> priceRangeAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.price_range_choices,
-                        R.layout.spinner_center_dropdown);
-        priceRangeAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        priceRangeSpinner.setAdapter(priceRangeAdapter);
-
-        final Spinner activityPreferencesSpinner =
-                (Spinner) findViewById(R.id.activity_preferences_spinner);
-        ArrayAdapter<CharSequence> activityPreferencesAdapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.activity_preferences_choices,
-                        R.layout.spinner_center_dropdown);
-        activityPreferencesAdapter.setDropDownViewResource(R.layout.spinner_center_dropdown);
-        activityPreferencesSpinner.setAdapter(activityPreferencesAdapter);
-        */
 
         CircularProgressView progressCircle = (CircularProgressView) findViewById(R.id.progress_circle);
 

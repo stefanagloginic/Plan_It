@@ -1,8 +1,9 @@
 package com.example.user01.planit;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -17,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private Activity activity;
@@ -25,13 +28,11 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private ArrayList<Event> breakfastEvents;
     private ArrayList<Event> lunchEvents;
     private ArrayList<Event> dinnerEvents;
-    private ProgressDialog dialog;
     private CircularProgressView cpv;
 
     YelpAPIWrapper(Activity activity, ArrayList<String> settings) {
         this.activity = activity;
         this.settings = settings;
-        dialog = new ProgressDialog(activity);
         YelpAPIFactory yelpAPIFactory = new YelpAPIFactory(
                 activity.getString(R.string.consumer_key),
                         activity.getString(R.string.consumer_secret),
@@ -46,10 +47,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         cpv = (CircularProgressView) this.activity.findViewById(R.id.progress_circle);
-//        this.dialog.setMessage("Loading your day");
-//        this.dialog.setCanceledOnTouchOutside(false);
-//        this.dialog.setCancelable(false);
-//        this.dialog.show();
     }
 
     @Override
@@ -62,6 +59,10 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             noonparam.put("term", "Lunch");
             evenparam.put("term", "Dinner");
             Call<SearchResponse> call;
+
+            Bitmap bitmap = BitmapFactory.decodeResource(
+                    this.activity.getResources(),R.drawable.food);
+            bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
 
             ArrayList<Business> breakfast, lunch, dinner;
             switch(settings.get(1)) {
@@ -96,7 +97,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     breakfast = morningResponse.businesses();
                     lunch = noonResponse.businesses();
                     dinner = eveningResponse.businesses();
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 2; i++) {
                         int random = (int) (Math.random() * 20);
                         breakfastEvents.add(new YelpEvent(breakfast.get(random)));
                         lunchEvents.add(new YelpEvent(lunch.get(random)));
@@ -104,19 +105,21 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     }
                     break;
             }
-//            Retrofit client = new Retrofit
-//                    .Builder()
-//                    .baseUrl("http://api.eventful.com/")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
-//            Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
-//            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
-//            for (int i = 0; i < 3; i++) {
-//                eventfulEvents.get(i).setEventVariables();
-//                yelpEvents.add(eventfulEvents.get(i));
-//            }
-//            Log.i("info","eventName");
+            Retrofit client = new Retrofit
+                    .Builder()
+                    .baseUrl("http://api.eventful.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
+            retrofit2.Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
+            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
+            for (int i = 0; i < 1; i++) {
+                eventfulEvents.get(i).setEventVariables(bitmap);
+                breakfastEvents.add(eventfulEvents.get(i));
+            }
+            EventData.setBreakfastEvents(breakfastEvents);
+            EventData.setLunchEvents(lunchEvents);
+            EventData.setDinnerEvents(dinnerEvents);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,10 +129,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Intent intent = new Intent(activity,RecyclerActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putParcelableArrayListExtra("breakfast", breakfastEvents);
-        intent.putParcelableArrayListExtra("lunch", lunchEvents);
-        intent.putParcelableArrayListExtra("dinner", dinnerEvents);
 
         activity.startActivity(intent);
         cpv.stopAnimation();

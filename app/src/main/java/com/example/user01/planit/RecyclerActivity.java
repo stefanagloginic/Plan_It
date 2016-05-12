@@ -47,9 +47,9 @@ public class RecyclerActivity extends Activity {
     }
 
     private void initializeAdapter(){
-        ArrayList<Event> breakfastEvents = getIntent().getParcelableArrayListExtra("breakfast");
-        ArrayList<Event> lunchEvents = getIntent().getParcelableArrayListExtra("lunch");
-        ArrayList<Event> dinnerEvents = getIntent().getParcelableArrayListExtra("dinner");
+        ArrayList<Event> breakfastEvents = EventData.getBreakfastEvents();
+        ArrayList<Event> lunchEvents = EventData.getLunchEvents();
+        ArrayList<Event> dinnerEvents = EventData.getDinnerEvents();
 
         RVAdapter breakfastAdapter = new RVAdapter(breakfastEvents);
         RVAdapter lunchAdapter = new RVAdapter(lunchEvents);
