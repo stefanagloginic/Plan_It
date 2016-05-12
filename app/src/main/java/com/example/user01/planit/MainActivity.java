@@ -8,7 +8,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         }
 
         CircularProgressView progressCircle = (CircularProgressView) findViewById(R.id.progress_circle);
+        progressCircle.setThickness(0);
 
         progressCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 
     public void makeCircularProgressUnclickable(){
         CircularProgressView progressCircle = (CircularProgressView) findViewById(R.id.progress_circle);
+        progressCircle.setThickness(20);
         progressCircle.setClickable(false);
     }
 

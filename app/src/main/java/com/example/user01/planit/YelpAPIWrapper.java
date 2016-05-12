@@ -97,7 +97,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     breakfast = morningResponse.businesses();
                     lunch = noonResponse.businesses();
                     dinner = eveningResponse.businesses();
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 1; i++) {
                         int random = (int) (Math.random() * 20);
                         breakfastEvents.add(new YelpEvent(breakfast.get(random)));
                         lunchEvents.add(new YelpEvent(lunch.get(random)));
@@ -111,7 +111,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
-            retrofit2.Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList();
+            retrofit2.Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList("music");
             ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
             for (int i = 0; i < 1; i++) {
                 eventfulEvents.get(i).setEventVariables(bitmap);
