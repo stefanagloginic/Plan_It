@@ -62,7 +62,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Call<SearchResponse> call;
 
             Bitmap bitmap = BitmapFactory.decodeResource(
-                    this.activity.getResources(),R.drawable.food);
+                    this.activity.getResources(),R.drawable.yelp_pin);
             bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
 
             ArrayList<Business> breakfast, lunch, dinner;
