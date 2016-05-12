@@ -1,11 +1,15 @@
 package com.example.user01.planit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RecyclerActivity extends Activity {
     private RecyclerView breakfastRV;
@@ -16,6 +20,12 @@ public class RecyclerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_activity);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/RobotoL.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         breakfastRV = (RecyclerView) findViewById(R.id.rv);
         breakfastRV.setHasFixedSize(true);
@@ -82,6 +92,11 @@ public class RecyclerActivity extends Activity {
         breakfastRV.setAdapter(breakfastAdapter);
         lunchRV.setAdapter(lunchAdapter);
         dinnerRV.setAdapter(dinnerAdapter);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

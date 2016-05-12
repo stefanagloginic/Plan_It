@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         Bundle data = getIntent().getExtras();
         user = data.getParcelable("user");
 
-        final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+       /* final TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
         tvWelcome.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
-
+*/
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)

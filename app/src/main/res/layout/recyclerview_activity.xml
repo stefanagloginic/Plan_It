@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
-    >
+    android:background="@color/grey"
+    tools:ignore="MissingPrefix">
 
     <!--<LinearLayout-->
         <!--android:orientation="vertical"-->
@@ -22,6 +24,8 @@
         android:text="Breakfast"
         android:id="@+id/breakfast"
         android:layout_marginTop="10dp"
+        fontPath="fonts/Roboto-Condensed.ttf"
+        android:textColor="@color/colorPrimaryDark"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -40,6 +44,8 @@
         android:id="@+id/lunch"
         android:layout_below="@id/rv"
         android:layout_marginTop="10dp"
+        fontPath="fonts/Roboto-Condensed.ttf"
+        android:textColor="@color/colorPrimaryDark"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -48,6 +54,7 @@
         android:layout_below="@+id/lunch"
         android:layout_marginTop="5dp"
         android:id="@+id/rv2"
+        fontPath="fonts/RobotoL.ttf"
         />
 
     <TextView
@@ -58,6 +65,8 @@
         android:id="@+id/dinner"
         android:layout_below="@id/rv2"
         android:layout_marginTop="10dp"
+        fontPath="fonts/Roboto-Condensed.ttf"
+        android:textColor="@color/colorPrimaryDark"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -66,5 +75,6 @@
         android:layout_below="@+id/dinner"
         android:layout_marginTop="5dp"
         android:id="@+id/rv3"
+        fontPath="fonts/RobotoL.ttf"
         />
 </RelativeLayout>
