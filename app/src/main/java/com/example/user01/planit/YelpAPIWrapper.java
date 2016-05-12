@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.content.ContextCompat;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.yelp.clientlib.connection.YelpAPI;
@@ -132,6 +133,8 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
 
         activity.startActivity(intent);
         cpv.stopAnimation();
+        cpv.setThickness(0);
+        cpv.setColor(ContextCompat.getColor(this.activity.getApplicationContext(),R.color.grey));
     }
 
 }

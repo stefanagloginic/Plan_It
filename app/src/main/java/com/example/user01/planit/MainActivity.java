@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 
         CircularProgressView progressCircle = (CircularProgressView) findViewById(R.id.progress_circle);
         progressCircle.setThickness(0);
+        progressCircle.setColor(ContextCompat.getColor(getApplicationContext(),R.color.grey));
 
         progressCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     public void makeCircularProgressUnclickable(){
         CircularProgressView progressCircle = (CircularProgressView) findViewById(R.id.progress_circle);
         progressCircle.setThickness(20);
+        progressCircle.setColor(ContextCompat.getColor(getApplicationContext(),R.color
+                .colorPrimary));
         progressCircle.setClickable(false);
     }
 
