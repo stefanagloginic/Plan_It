@@ -23,7 +23,6 @@ public class YelpHTMLScraper {
             doc = Jsoup.connect(businessURL).userAgent("Mozilla").get();
             getHours();
             //priceRange = doc.select("dd.nowrap.price-description").first().text();
-            Log.i("info","getHours");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,8 +23,8 @@ public class Event {
         return eventRating;
     }
     public String getEventURL() { return eventURL; }
+
     public Bitmap getEventBitmap() {return eventBitmap; }
-    public String getEventPriceRange() { return eventPriceRange; }
-    public String getEventHours() { return eventHours; }
+
 
 }

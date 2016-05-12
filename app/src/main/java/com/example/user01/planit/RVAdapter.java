@@ -62,8 +62,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         eventViewHolder.eventName.setText(events.get(i).getEventName());
         eventViewHolder.eventAddress.setText(events.get(i).getEventAddress());
         eventViewHolder.eventRating.setText(events.get(i).getEventRating());
-//        eventViewHolder.eventPriceRange.setText(events.get(i).getEventPriceRange());
-//        eventViewHolder.eventHours.setText(events.get(i).getEventHours());
     }
 
     @Override

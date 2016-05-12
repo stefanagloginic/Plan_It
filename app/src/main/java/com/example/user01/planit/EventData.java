@@ -2,38 +2,35 @@ package com.example.user01.planit;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jimmyle on 5/11/16.
- */
 public class EventData {
 
     private static EventData ourInstance = new EventData();
-    private static ArrayList<Event> breakfastEvents;
-    private static ArrayList<Event> lunchEvents;
-    private static ArrayList<Event> dinnerEvents;
+    private static ArrayList<Event> morningEvents;
+    private static ArrayList<Event> afternoonEvents;
+    private static ArrayList<Event> eveningEvents;
 
-    public static ArrayList<Event> getBreakfastEvents() {
-        return breakfastEvents;
+    public static ArrayList<Event> getMorningEvents() {
+        return morningEvents;
     }
 
-    public static ArrayList<Event> getLunchEvents() {
-        return lunchEvents;
+    public static ArrayList<Event> getAfternoonEvents() {
+        return afternoonEvents;
     }
 
     public static ArrayList<Event> getDinnerEvents() {
-        return dinnerEvents;
+        return eveningEvents;
     }
 
-    public static void setBreakfastEvents(ArrayList<Event> breakfastEvents) {
-        EventData.breakfastEvents = breakfastEvents;
+    public static void setMorningEvents(ArrayList<Event> morningEvents) {
+        EventData.morningEvents = morningEvents;
     }
 
-    public static void setLunchEvents(ArrayList<Event> lunchEvents) {
-        EventData.lunchEvents = lunchEvents;
+    public static void setAfternoonEvents(ArrayList<Event> afternoonEvents) {
+        EventData.afternoonEvents = afternoonEvents;
     }
 
     public static void setDinnerEvents(ArrayList<Event> dinnerEvents) {
-        EventData.dinnerEvents = dinnerEvents;
+        EventData.eveningEvents = dinnerEvents;
     }
 
     public static EventData getInstance() {

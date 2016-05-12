@@ -1,5 +1,6 @@
 package com.example.user01.planit;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -15,14 +16,17 @@ import java.util.Calendar;
 public class YelpEvent extends Event {
     private String businessHours;
     private YelpHTMLScraper yelpHTMLScraper;
+    private Activity activity;
 
-    public YelpEvent(Business b) {
+    public YelpEvent(Business b, Activity a) {
+        this.activity = a;
         this.eventName = b.name();
         this.eventAddress = b.location().address().get(0) + ", " + b.location().city();
         this.eventRating = "Rating: "+String.valueOf(b.rating()) + " | " +
                 String.valueOf(b.reviewCount()) + " Ratings";
         this.eventURL = b.url();
-        this.eventBitmap = LoadImageFromWeb(b.imageUrl());
+//        this.eventBitmap = LoadImageFromWeb(b.imageUrl());
+        this.eventBitmap = loadFoodIcon();
         yelpHTMLScraper = new YelpHTMLScraper(eventURL);
         this.eventPriceRange = yelpHTMLScraper.getPriceRange();
         this.eventHours = getBusinessHours();
@@ -61,18 +65,12 @@ public class YelpEvent extends Event {
         return businessHours;
     }
 
-    public static Bitmap LoadImageFromWeb(String url) {
-        try {
-            URL urlImage = new URL(url);
-            Log.i("IMAGE LOADED", url);
-            return BitmapFactory.decodeStream(urlImage.openConnection().getInputStream());
-        } catch (MalformedURLException e) {
-            Log.i("MalformedURLException", url);
-            return null;
-        } catch (IOException e) {
-            Log.i("IOException", url);
-            return null;
-        }
+    public Bitmap loadFoodIcon() {
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.yelp_pin);
+        bitmap = Bitmap.createScaledBitmap(bitmap, 200,200, false);
+        return bitmap;
     }
+
+
 
 }
