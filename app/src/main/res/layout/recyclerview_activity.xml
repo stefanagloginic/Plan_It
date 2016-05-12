@@ -25,7 +25,7 @@
         android:id="@+id/breakfast"
         android:layout_marginTop="10dp"
         fontPath="fonts/Roboto-Condensed.ttf"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         />
 
     <android.support.v7.widget.RecyclerView
