@@ -7,6 +7,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 public class RecyclerActivity extends Activity {
     private RecyclerView breakfastRV;
     private RecyclerView lunchRV;
@@ -16,6 +18,12 @@ public class RecyclerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_activity);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/plan.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         breakfastRV = (RecyclerView) findViewById(R.id.rv);
         breakfastRV.setHasFixedSize(true);
