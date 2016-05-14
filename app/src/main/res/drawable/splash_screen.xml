@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
 
-    <item android:drawable="@drawable/android_splash_screen"/>
+    <item android:drawable="@drawable/android_splash_screen"
+        android:height="20dp"
+        android:width="20dp"
+        />
 
 </layer-list>
