@@ -92,7 +92,8 @@
         fontPath="fonts/Roboto-Condensed.ttf"
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/white"
-        android:textSize="7pt"/>
+        android:textSize="7pt"
+         />
 
 
 
