@@ -32,7 +32,7 @@
         android:layout_height="120dp"
         android:layout_width="match_parent"
         android:layout_below="@id/morning"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:id="@+id/rv"
         />
 
@@ -52,7 +52,7 @@
         android:layout_height="120dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/afternoon"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:id="@+id/rv2"
         fontPath="fonts/RobotoL.ttf"
         />
@@ -73,7 +73,7 @@
         android:layout_height="120dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/evening"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:id="@+id/rv3"
         fontPath="fonts/RobotoL.ttf"
         />

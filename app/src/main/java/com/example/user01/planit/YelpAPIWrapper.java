@@ -98,7 +98,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     eveningResponse = call.execute().body();
                     dinner = eveningResponse.businesses();
 
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 2; i++) {
                         int random = (int) (Math.random() * breakfast.size() - 1);
                         morningEvents.add(new YelpEvent(breakfast.get(random), this.activity));
                         random = (int) (Math.random() * lunch.size() - 1);
