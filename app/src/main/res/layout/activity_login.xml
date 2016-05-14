@@ -38,7 +38,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/etPassword"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="3dp"
         android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -92,7 +92,8 @@
         fontPath="fonts/Roboto-Condensed.ttf"
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/white"
-        android:textSize="7pt"/>
+        android:textSize="7pt"
+         />
 
 
 
