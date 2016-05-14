@@ -1,6 +1,7 @@
 package com.example.user01.planit;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -198,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
             }
         });
     }
+
 
 
 }

@@ -64,66 +64,90 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Bitmap bitmap = BitmapFactory.decodeResource(
                     this.activity.getResources(),R.drawable.yelp_pin);
             bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
+            EventData.setBitmap(bitmap);
 
             ArrayList<Business> breakfast, lunch, dinner;
-            switch(settings.get(1)) {
-                case "Morning":
-                    call = yelpAPI.search(settings.get(0), mornparam);
-                    SearchResponse morningResponse = call.execute().body();
-                    breakfast = morningResponse.businesses();
-                    morningEvents.add(new YelpEvent((breakfast.get((int) (Math.random() * 20))), this.activity));
-                    break;
-                case "Afternoon":
-                    call = yelpAPI.search(settings.get(0), noonparam);
-                    SearchResponse noonResponse = call.execute().body();
-                    lunch = noonResponse.businesses();
-                    afternoonEvents.add(new YelpEvent((lunch.get((int) (Math.random() * 20))), this.activity));
-                    break;
-                case "Evening":
-                    call = yelpAPI.search(settings.get(0), evenparam);
-                    SearchResponse eveningResponse = call.execute().body();
-                    dinner = eveningResponse.businesses();
-                    eveningEvents.add(new YelpEvent((dinner.get((int) (Math.random() * 20))), this.activity));
-                    break;
-                default:
-                    call = yelpAPI.search(settings.get(0), mornparam);
-                    morningResponse = call.execute().body();
-                    breakfast = morningResponse.businesses();
 
-                    call = yelpAPI.search(settings.get(0), noonparam);
-                    noonResponse = call.execute().body();
-                    lunch = noonResponse.businesses();
 
-                    call = yelpAPI.search(settings.get(0), evenparam);
-                    eveningResponse = call.execute().body();
-                    dinner = eveningResponse.businesses();
+            call = yelpAPI.search(settings.get(0), mornparam);
+            SearchResponse morningResponse = call.execute().body();
+            breakfast = morningResponse.businesses();
 
-                    for (int i = 0; i < 2; i++) {
-                        int random = (int) (Math.random() * breakfast.size() - 1);
-                        morningEvents.add(new YelpEvent(breakfast.get(random), this.activity));
-                        random = (int) (Math.random() * lunch.size() - 1);
-                        afternoonEvents.add(new YelpEvent(lunch.get(random), this.activity));
-                        random = (int) (Math.random() * dinner.size() - 1);
-                        eveningEvents.add(new YelpEvent(dinner.get(random), this.activity));
-                    }
-                    break;
-            }
+            call = yelpAPI.search(settings.get(0), noonparam);
+            SearchResponse noonResponse = call.execute().body();
+            lunch = noonResponse.businesses();
 
-            Retrofit client = new Retrofit
-                    .Builder()
-                    .baseUrl("http://api.eventful.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
-            retrofit2.Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList("music");
-            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
-            for (int i = 0; i < 4; i++) {
-                eventfulEvents.get(i).setEventVariables(bitmap);
-                morningEvents.add(eventfulEvents.get(i));
-            }
-            EventData.setMorningEvents(morningEvents);
-            EventData.setAfternoonEvents(afternoonEvents);
-            EventData.setDinnerEvents(eveningEvents);
+            call = yelpAPI.search(settings.get(0), evenparam);
+            SearchResponse eveningResponse = call.execute().body();
+            dinner = eveningResponse.businesses();
+
+
+
+            EventData.setMorningRestaurant(breakfast);
+            EventData.setAfternoonRestaurant(lunch);
+            EventData.setEveningRestaurant(dinner);
+
+//
+//            switch(settings.get(1)) {
+//                case "Morning":
+//                    call = yelpAPI.search(settings.get(0), mornparam);
+//                    SearchResponse morningResponse = call.execute().body();
+//                    breakfast = morningResponse.businesses();
+//                    morningEvents.add(new YelpEvent((breakfast.get((int) (Math.random() * 20))), this.activity));
+//                    break;
+//                case "Afternoon":
+//                    call = yelpAPI.search(settings.get(0), noonparam);
+//                    SearchResponse noonResponse = call.execute().body();
+//                    lunch = noonResponse.businesses();
+//                    afternoonEvents.add(new YelpEvent((lunch.get((int) (Math.random() * 20))), this.activity));
+//                    break;
+//                case "Evening":
+//                    call = yelpAPI.search(settings.get(0), evenparam);
+//                    SearchResponse eveningResponse = call.execute().body();
+//                    dinner = eveningResponse.businesses();
+//                    eveningEvents.add(new YelpEvent((dinner.get((int) (Math.random() * 20))), this.activity));
+//                    break;
+//                default:
+//                    call = yelpAPI.search(settings.get(0), mornparam);
+//                    morningResponse = call.execute().body();
+//                    breakfast = morningResponse.businesses();
+//
+//                    call = yelpAPI.search(settings.get(0), noonparam);
+//                    noonResponse = call.execute().body();
+//                    lunch = noonResponse.businesses();
+//
+//                    call = yelpAPI.search(settings.get(0), evenparam);
+//                    eveningResponse = call.execute().body();
+//                    dinner = eveningResponse.businesses();
+//
+//                    for (int i = 0; i < 2; i++) {
+//                        int random = (int) (Math.random() * breakfast.size() - 1);
+//                        morningEvents.add(new YelpEvent(breakfast.get(random), this.activity));
+//                        random = (int) (Math.random() * lunch.size() - 1);
+//                        afternoonEvents.add(new YelpEvent(lunch.get(random), this.activity));
+//                        random = (int) (Math.random() * dinner.size() - 1);
+//                        eveningEvents.add(new YelpEvent(dinner.get(random), this.activity));
+//                    }
+//                    break;
+//            }
+
+//            Retrofit client = new Retrofit
+//                    .Builder()
+//                    .baseUrl("http://api.eventful.com/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//            EventfulAPI eventfulAPI = client.create(EventfulAPI.class);
+//            retrofit2.Call<EventfulModel> eventfulModelCall = eventfulAPI.EventfulList("music");
+//            ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
+//            for (int i = 0; i < 4; i++) {
+//                eventfulEvents.get(i).setEventVariables(bitmap);
+//                morningEvents.add(eventfulEvents.get(i));
+//            }
+//            EventData.setMorningEvents(morningEvents);
+//            EventData.setAfternoonEvents(afternoonEvents);
+//            EventData.setDinnerEvents(eveningEvents);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

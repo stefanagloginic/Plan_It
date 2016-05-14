@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import com.yelp.clientlib.entities.Business;
+
 import java.util.ArrayList;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -49,9 +51,12 @@ public class RecyclerActivity extends Activity {
     }
 
     private void initializeAdapter(){
-        ArrayList<Event> breakfastEvents = EventData.getMorningEvents();
-        ArrayList<Event> lunchEvents = EventData.getAfternoonEvents();
-        ArrayList<Event> dinnerEvents = EventData.getDinnerEvents();
+//        ArrayList<Event> breakfastEvents = EventData.getMorningEvents();
+//        ArrayList<Event> lunchEvents = EventData.getAfternoonEvents();
+//        ArrayList<Event> dinnerEvents = EventData.getDinnerEvents();
+        ArrayList<Business> breakfastEvents = EventData.getMorningRestaurants();
+        ArrayList<Business> lunchEvents = EventData.getAfternoonRestaurants();
+        ArrayList<Business> dinnerEvents = EventData.getEveningRestaurants();
 
         RVAdapter breakfastAdapter = new RVAdapter(breakfastEvents);
         RVAdapter lunchAdapter = new RVAdapter(lunchEvents);
