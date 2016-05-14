@@ -17,6 +17,7 @@ public class EventData {
     private static ArrayList<Business> afternoonRestaurants;
     private static ArrayList<Business> eveningRestaurants;
 
+    //
     public static void setBitmap(Bitmap bitmap) {
         EventData.bitmap = bitmap;
     }
