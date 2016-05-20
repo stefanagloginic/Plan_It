@@ -28,8 +28,10 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     private GoogleApiClient googleApiClient;
     private Activity activity;
     private ArrayList<GPSListener> listeners;
+    private boolean isGPSConnected;
 
     public GPS(Activity activity) {
+        this.isGPSConnected = false;
         this.activity = activity;
         googleApiClient = new GoogleApiClient.Builder(activity, this, this).addApi(LocationServices.API).build();
         this.listeners = new ArrayList<GPSListener>();
@@ -47,6 +49,8 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle bundle) {
+
+        this.isGPSConnected = true;
 
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -135,6 +139,10 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
 
     public void stopLocationUpdates(){
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
+    }
+
+    public boolean getIsGPSConnected(){
+        return isGPSConnected;
     }
 
 }

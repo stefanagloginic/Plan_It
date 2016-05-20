@@ -157,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     @Override
     public void onPause(){
         super.onPause();
-        gps.stopLocationUpdates();
+        if(gps.getIsGPSConnected())
+            gps.stopLocationUpdates();
     }
 
     @Override
