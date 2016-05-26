@@ -8,20 +8,27 @@ import com.yelp.clientlib.entities.Business;
 import java.util.ArrayList;
 
 public class EventData {
-    private static Bitmap bitmap;
+    private static ArrayList<Bitmap> bitmaps;
     private static EventData ourInstance = new EventData();
     private static ArrayList<EventfulEvent> Events;
+    private static ArrayList<Movie> movies;
+    private static ArrayList<Event> morningEvents;
+    private static ArrayList<Event> afternoonEvents;
+    private static ArrayList<Event> eveningEvents;
     private static ArrayList<Business> morningRestaurants;
     private static ArrayList<Business> afternoonRestaurants;
     private static ArrayList<Business> eveningRestaurants;
 
-    //
-    public static void setBitmap(Bitmap bitmap) {
-        EventData.bitmap = bitmap;
+    public static void setMovies(ArrayList<Movie> movies) { EventData.movies = movies; }
+
+    public static ArrayList<Movie> getMovies() { return EventData.movies; }
+
+    public static void setBitmap(ArrayList<Bitmap> bitmap) {
+        EventData.bitmaps = bitmap;
     }
 
-    public static Bitmap getBitmap() {
-        return bitmap;
+    public static ArrayList<Bitmap> getBitmap() {
+        return bitmaps;
     }
 
     public static ArrayList<EventfulEvent> getEvents() {

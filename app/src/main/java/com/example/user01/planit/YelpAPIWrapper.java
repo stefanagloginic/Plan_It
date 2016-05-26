@@ -63,10 +63,23 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             evenparam.put("term", "Dinner");
             Call<SearchResponse> call;
 
+            ArrayList<Bitmap> bitmapsList = new ArrayList<>();
             Bitmap bitmap = BitmapFactory.decodeResource(
                     this.activity.getResources(),R.drawable.yelp_pin);
             bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
-            EventData.setBitmap(bitmap);
+            bitmapsList.add(bitmap);
+
+            bitmap = BitmapFactory.decodeResource(
+                    this.activity.getResources(),R.drawable.outdoor_pin);
+            bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
+            bitmapsList.add(bitmap);
+
+            bitmap = BitmapFactory.decodeResource(
+                    this.activity.getResources(),R.drawable.movie_pin);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+            bitmapsList.add(bitmap);
+
+            EventData.setBitmap(bitmapsList);
 
             ArrayList<Business> breakfast, lunch, dinner;
 
@@ -87,9 +100,22 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Collections.shuffle(lunch, new Random(seed));
             Collections.shuffle(dinner,new Random(seed));
 
+
             EventData.setMorningRestaurant(breakfast);
             EventData.setAfternoonRestaurant(lunch);
             EventData.setEveningRestaurant(dinner);
+
+            Retrofit movieDatabaseClient = new Retrofit.Builder()
+                    .baseUrl("http://api.themoviedb.org/3/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            MovieDatabaseAPI movieDatabaseAPI = movieDatabaseClient.create(MovieDatabaseAPI.class);
+            retrofit2.Call<MovieDatabaseModel> movieCall = movieDatabaseAPI.getMovieDatabaseModel();
+            ArrayList<Movie> movies = movieCall.execute().body().getMovies();
+            Collections.shuffle(movies, new Random(seed));
+            EventData.setMovies(movies);
+
+
 
             Retrofit client = new Retrofit
                     .Builder()

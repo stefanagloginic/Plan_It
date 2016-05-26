@@ -52,7 +52,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
 
     @Override
     public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
-        eventViewHolder.eventImage.setImageBitmap(EventData.getBitmap());
+        eventViewHolder.eventImage.setImageBitmap(EventData.getBitmap().get(0));
         eventViewHolder.eventName.setText(businesses.get(i).name());
         eventViewHolder.eventAddress.setText(businesses.get(i).location().address().get(0) + ", " + businesses.get(i).location().city());
         eventViewHolder.eventRating.setText("Rating: "+String.valueOf(businesses.get(i).rating()) + " | " +
