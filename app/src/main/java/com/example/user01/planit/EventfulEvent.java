@@ -1,7 +1,5 @@
 package com.example.user01.planit;
 
-import android.graphics.Bitmap;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,13 +18,10 @@ public class EventfulEvent extends Event {
     @Expose
     private String venueAddress;
 
-    public void setEventVariables(Bitmap bitmap) {
+    public void setEventVariables() {
         this.eventName = title;
         this.eventAddress = venueAddress + " " + cityName;
-        this.eventRating = "N/A";
         this.eventURL = url;
-        this.eventPriceRange = "N/A";
-        this.eventBitmap = bitmap;
 }
 
 }

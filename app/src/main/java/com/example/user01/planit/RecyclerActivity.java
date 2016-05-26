@@ -17,6 +17,7 @@ public class RecyclerActivity extends Activity {
     private RecyclerView morningRV;
     private RecyclerView afternoonRV;
     private RecyclerView eveningRV;
+    private RecyclerView eventfulRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,32 +36,36 @@ public class RecyclerActivity extends Activity {
         afternoonRV.setHasFixedSize(true);
         eveningRV = (RecyclerView) findViewById(R.id.rv3);
         eveningRV.setHasFixedSize(true);
+        eventfulRV = (RecyclerView) findViewById(R.id.rv4);
+
 
         CustomLayoutManager breakfastLayout = new CustomLayoutManager(this);
         CustomLayoutManager lunchLayout = new CustomLayoutManager(this);
         CustomLayoutManager dinnerLayout = new CustomLayoutManager(this);
+        CustomLayoutManager eventfulLayout = new CustomLayoutManager(this);
         breakfastLayout.setRecycleChildrenOnDetach(true);
         lunchLayout.setRecycleChildrenOnDetach(true);
         dinnerLayout.setRecycleChildrenOnDetach(true);
+        eventfulLayout.setRecycleChildrenOnDetach(true);
 
         morningRV.setLayoutManager(breakfastLayout);
         afternoonRV.setLayoutManager(lunchLayout);
         eveningRV.setLayoutManager(dinnerLayout);
+        eventfulRV.setLayoutManager(eventfulLayout);
 
         initializeAdapter();
     }
 
     private void initializeAdapter(){
-//        ArrayList<Event> breakfastEvents = EventData.getMorningEvents();
-//        ArrayList<Event> lunchEvents = EventData.getAfternoonEvents();
-//        ArrayList<Event> dinnerEvents = EventData.getDinnerEvents();
         ArrayList<Business> breakfastEvents = EventData.getMorningRestaurants();
         ArrayList<Business> lunchEvents = EventData.getAfternoonRestaurants();
         ArrayList<Business> dinnerEvents = EventData.getEveningRestaurants();
+        ArrayList<EventfulEvent> eventfulEvents = EventData.getEvents();
 
         RVAdapter breakfastAdapter = new RVAdapter(breakfastEvents);
         RVAdapter lunchAdapter = new RVAdapter(lunchEvents);
         RVAdapter dinnerAdapter = new RVAdapter(dinnerEvents);
+        EventfulRVAdapter eventfulRVAdapter = new EventfulRVAdapter(eventfulEvents);
 
         ItemTouchHelper.Callback callback = new EventTouchHelper(breakfastAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -74,9 +79,14 @@ public class RecyclerActivity extends Activity {
         helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(eveningRV);
 
+        callback = new EventTouchHelper(eventfulRVAdapter);
+        helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(eventfulRV);
+
         morningRV.setAdapter(breakfastAdapter);
         afternoonRV.setAdapter(lunchAdapter);
         eveningRV.setAdapter(dinnerAdapter);
+        eventfulRV.setAdapter(eventfulRVAdapter);
     }
 
     @Override
