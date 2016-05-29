@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     @Override
     public void onGPSConnect(GPSEvent e) {
         if(requestingLocationUpdates) {
-            Toast.makeText(MainActivity.this, "Begin location updates", Toast.LENGTH_SHORT).show();
             gps.startLocationUpdates();
             currLocation = e.getLocation();
         }
