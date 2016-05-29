@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/RobotoL.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -56,6 +58,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                if (!areRequiredFieldsFilled()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setMessage("Please Enter Missing Fields")
+                            .setNegativeButton("OK", null)
+                            .create()
+                            .show();
+                    return;
+                }
+
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
 
@@ -114,6 +125,25 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private boolean areRequiredFieldsFilled(){
+        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
+
+        final String username = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
+
+        boolean isFilled = true;
+
+        if(username.length()==0){
+            isFilled = false;
+        }
+        if(password.length()==0){
+            isFilled = false;
+        }
+
+        return isFilled;
     }
 
 }

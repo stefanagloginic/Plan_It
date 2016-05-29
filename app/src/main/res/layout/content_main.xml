@@ -6,6 +6,7 @@
     android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     android:id="@+id/Main">
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -86,8 +87,6 @@
         android:id="@+id/Settings"
         android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/progress_circle"
-        android:layout_alignEnd="@+id/progress_circle"
         android:background="#00ffffff"
         android:clickable="true">
 

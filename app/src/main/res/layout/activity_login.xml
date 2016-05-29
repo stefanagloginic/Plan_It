@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
     tools:ignore="MissingPrefix"
-    tools:context="com.example.angel.loginregister.LoginActivity">
+    android:screenOrientation="portrait"
+    tools:context="com.example.user01.planit.LoginActivity">
 
     <TextView
         fontPath="fonts/plan.ttf"
