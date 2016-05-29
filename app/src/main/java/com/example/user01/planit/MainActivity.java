@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
                 if(!requestingLocationUpdates || currLocation == null){
                     createDialogBoxLocation();
                 }
-                if(currLocation != null) {
+                else {
 
                     final FloatingActionButton fabSettings = (FloatingActionButton) findViewById(R.id.fabSettings);
                     fabSettings.setVisibility(View.GONE);
