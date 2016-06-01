@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
 
                 setFABGPS();
                 setFABLogout();
+                setFABAccount();
 
                 relativeLayoutSettings.setVisibility(View.VISIBLE);
 
@@ -268,6 +269,18 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
                 Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
                 MainActivity.this.startActivity(logoutIntent);
                 MainActivity.this.finish();
+            }
+        });
+    }
+
+    private void setFABAccount(){
+        FloatingActionButton fabAccount = (FloatingActionButton) findViewById(R.id.fabAccount);
+        fabAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent AccountIntent = new Intent(MainActivity.this, AccountActivity.class);
+                AccountIntent.putExtra("user", user);
+                MainActivity.this.startActivity(AccountIntent);
             }
         });
     }

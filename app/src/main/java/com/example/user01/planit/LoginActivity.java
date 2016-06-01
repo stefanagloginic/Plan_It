@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (success) {
                                 User user = new User(jsonResponse);
-
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("user", user);
 

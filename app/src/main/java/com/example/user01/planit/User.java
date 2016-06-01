@@ -1,5 +1,6 @@
 package com.example.user01.planit;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -17,6 +18,7 @@ public class User implements  Parcelable{
     private String password;
     private int age;
     private String lastName;
+    private String profilePicture;
 
 
     public User(String username, String firstName,String lastName, String password, int age){
@@ -34,6 +36,7 @@ public class User implements  Parcelable{
         this.password = o.getString("password");
         this.username = o.getString("username");
         this.lastName = o.getString("lastname");
+        //this.profilePicture = o.getString("profilepicture");
     }
 
     public User(Parcel in){
@@ -46,6 +49,7 @@ public class User implements  Parcelable{
         this.userID = Integer.parseInt(data[3]);
         this.age = Integer.parseInt(data[4]);
         this.lastName = data[5];
+        //this.profilePicture = data[6];
     }
 
 
@@ -62,7 +66,8 @@ public class User implements  Parcelable{
                 this.password,
                 String.valueOf(this.userID),
                 String.valueOf(this.age),
-                this.lastName
+                this.lastName,
+                //this.profilePicture
         });
     }
 
@@ -118,7 +123,10 @@ public class User implements  Parcelable{
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
+
     public void setAge(int age){
         this.age = age;
     }
+
+    public void setProfilePicture(String profilePicture) {this.profilePicture = profilePicture; }
 }

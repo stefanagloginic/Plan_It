@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
-    android:id="@+id/Main">
+    android:id="@+id/Main"
+    android:visibility="visible">
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -112,6 +113,23 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/fabAccount"
+            android:visibility="visible"
+            app:fabSize="mini"
+            app:backgroundTint="@color/cardview_light_background"
+            android:adjustViewBounds="false"
+            android:src="@android:drawable/ic_menu_manage"
+            android:layout_above="@+id/fabGPS"
+            android:layout_alignLeft="@+id/fabGPS"
+            android:layout_alignStart="@+id/fabGPS"
+            android:contextClickable="false"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:tint="#d1e8ff" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/fabLogout"
             android:src="@android:drawable/ic_lock_power_off"
             android:clickable="true"
@@ -140,17 +158,30 @@
             android:textColor="#355f88" />
 
         <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvGPSStatus"
+        android:layout_alignBottom="@+id/fabGPS"
+        android:layout_toLeftOf="@+id/fabLogout"
+        android:layout_toStartOf="@+id/fabLogout"
+        android:text="Stop GPS"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:textColor="#355f88" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/tvGPSStatus"
-            android:layout_alignBottom="@+id/fabGPS"
-            android:layout_toLeftOf="@+id/fabLogout"
-            android:layout_toStartOf="@+id/fabLogout"
-            android:text="Stop GPS"
+            android:id="@+id/tvAccount"
+            android:text="Account"
             android:textSize="26dp"
             android:textStyle="bold"
-            android:textColor="#355f88" />
+            android:textColor="#355f88"
+            android:layout_alignBottom="@+id/fabAccount"
+            android:layout_alignRight="@+id/tvGPSStatus"
+            android:layout_alignEnd="@+id/tvGPSStatus" />
 
     </RelativeLayout>
 

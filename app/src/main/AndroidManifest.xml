@@ -4,45 +4,53 @@
     package="com.example.user01.planit"
     tools:ignore="MissingPrefix">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCYozpD9e6-gWe2kEmFR3_kg-hjd7KtYVA" />
 
     <application
+        fontPath="fonts/RobotoL.ttf"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        fontPath="fonts/RobotoL.ttf"
-        >
-
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".SplashScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashScreen"
             android:screenOrientation="portrait"
-            >
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" android:screenOrientation="portrait"
-        ></activity >
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait"
-            ></activity >
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"
-            ></activity >
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".RecyclerActivity" />
-
+        <activity
+            android:name=".AccountActivity"
+            android:label="@string/title_activity_account"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCYozpD9e6-gWe2kEmFR3_kg-hjd7KtYVA"/>
 
 </manifest>

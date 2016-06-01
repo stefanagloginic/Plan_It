@@ -12,6 +12,7 @@
     <string name="time_of_day">Time of Day</string>
     <string name="price_range">Price Range</string>
     <string name="activity_preferences">Activity Preferences</string>
+    <string name="pick_image_intent_text">\"Pick a photo\"</string>
     <string-array name="time_of_day_choices">
         <item>All Day</item>
         <item>Morning</item>
@@ -32,4 +33,5 @@
         <item>Naturey</item>
         <item>Hungry</item>
     </string-array>
+    <string name="title_activity_account">AccountActivity</string>
 </resources>
