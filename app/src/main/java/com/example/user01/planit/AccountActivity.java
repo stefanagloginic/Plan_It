@@ -37,7 +37,7 @@ public class AccountActivity extends AppCompatActivity {
     private User user;
     private final int PICK_IMAGE_ID = 390;
     private final int PIC_CROP = 430;
-
+    private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,20 +106,34 @@ public class AccountActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PICK_IMAGE_ID:
-                Bitmap bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
-                // TODO use bitmap
-                performCrop(bitmap, LoginLogoutHelpers.getImageUri(this,bitmap) );
+                if(resultCode == RESULT_OK) {
+                    bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+                    // TODO use bitmap
+                    performCrop(bitmap, LoginLogoutHelpers.getImageUri(this, bitmap));
+                    break;
+                }
                 break;
             case PIC_CROP:
-                //get the returned data
-                Bundle extras = data.getExtras();
-                //get the cropped bitmap
-                Bitmap bitmaps = extras.getParcelable("data");
-                try {
-                    Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this,bitmaps));
-                    createPhotoRequest(smallerbitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(resultCode == RESULT_OK) {
+                    //get the returned data
+                    Bundle extras = data.getExtras();
+                    //get the cropped bitmap
+                    Bitmap bitmaps = extras.getParcelable("data");
+                    try {
+                        Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmaps));
+                        createPhotoRequest(smallerbitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }else{
+                    try {
+                        Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));
+                        createPhotoRequest(smallerbitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 }
 
             default:

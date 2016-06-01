@@ -48,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_ID = 275;
     private static final int CAMERA_PERMISSION_CODE = 3;
     private static final int PIC_CROP = 290;
+    private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,20 +180,38 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PICK_IMAGE_ID:
-                Bitmap bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
-                // TODO use bitmap
-                performCrop(bitmap, LoginLogoutHelpers.getImageUri(this,bitmap) );
-                break;
+                if(resultCode == RESULT_OK) {
+                    bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+                    performCrop(bitmap, LoginLogoutHelpers.getImageUri(this, bitmap));
+                    break;
+                }else{
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    RegisterActivity.this.startActivity(intent);
+                    RegisterActivity.this.finish();
+                    break;
+                }
             case PIC_CROP:
-                //get the returned data
-                Bundle extras = data.getExtras();
-                //get the cropped bitmap
-                Bitmap bitmaps = extras.getParcelable("data");
-                try {
-                    Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this,bitmaps));
-                    createPhotoRequest(smallerbitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(resultCode == RESULT_OK) {
+                    //get the returned data
+                    Bundle extras = data.getExtras();
+                    //get the cropped bitmap
+                    Bitmap bitmaps = extras.getParcelable("data");
+                    try {
+                        Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmaps));
+                        createPhotoRequest(smallerbitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }else{
+                    try {
+                        Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));
+                        createPhotoRequest(smallerbitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 }
 
             default:
