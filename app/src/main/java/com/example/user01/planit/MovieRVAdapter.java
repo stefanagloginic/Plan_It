@@ -23,7 +23,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.EventVie
         ImageView movieImage;
         TextView movieName;
         TextView movieDescription;
-        String movieURL = "https://www.google.com/#q=";
+        String movieURL;
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -60,7 +60,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.EventVie
         holder.movieImage.setImageBitmap(EventData.getBitmap().get(2));
         holder.movieName.setText(movies.get(i).getTitle());
         holder.movieDescription.setText(movies.get(i).getOverview());
-        holder.movieURL += movies.get(i).getTitle();
+        holder.movieURL = "https://www.google.com/#q=" + movies.get(i).getTitle();
     }
 
     @Override
