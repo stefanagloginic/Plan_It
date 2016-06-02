@@ -46,9 +46,15 @@ public class AccountActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         user = data.getParcelable("user");
 
-        createGetPhotoRequest();
-
         ImageView imProfilePic = (ImageView) findViewById(R.id.ivProfilePic);
+
+        if(LoginLogoutHelpers.isPhotoSaved(this)){
+            BitmapDrawable pic = new BitmapDrawable(getResources(), LoginLogoutHelpers.getBitmapFromLocalStorage(this));
+            imProfilePic.setImageDrawable(pic);
+        }else {
+            createGetPhotoRequest();
+        }
+
         imProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +76,7 @@ public class AccountActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     String profilepicture = jsonResponse.getString("profilepicture");
+                    LoginLogoutHelpers.saveBitmapToLocalStorage(AccountActivity.this ,profilepicture);
                     setProfilePicture(profilepicture);
 
                 } catch (JSONException e) {
@@ -122,19 +129,13 @@ public class AccountActivity extends AppCompatActivity {
                     try {
                         Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmaps));
                         createPhotoRequest(smallerbitmap);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                } else{
-                    try {
-                        Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));
-                        createPhotoRequest(smallerbitmap);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 }
+                break;
 
             default:
                 super.onActivityResult(requestCode, resultCode, data);
@@ -213,7 +214,7 @@ public class AccountActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-
+                LoginLogoutHelpers.saveBitmapToLocalStorage(AccountActivity.this, LoginLogoutHelpers.encodeTobase64(b));
                 Toast.makeText(AccountActivity.this, "Photo Added", Toast.LENGTH_SHORT).show();
                 BitmapDrawable pic = new BitmapDrawable(getResources(), b);
                 imProfilePic.setImageDrawable(pic);

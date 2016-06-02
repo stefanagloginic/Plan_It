@@ -55,6 +55,8 @@ public class LoginLogoutHelpers {
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         prefsEditor.putBoolean("loggedIn", false);
         prefsEditor.commit();
+
+        removeBitmapFromLocalStorage(activity);
     }
 
     /*public static byte[] bitmapToByteArray(Bitmap b){
@@ -172,4 +174,33 @@ public class LoginLogoutHelpers {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
+    public static void saveBitmapToLocalStorage(Activity activity, String b){
+        SharedPreferences mPrefs = activity.getBaseContext().getSharedPreferences("UserProfilePicture",0);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        prefsEditor.putString("profilePicture", b);
+        prefsEditor.putBoolean("PictureSaved", true);
+        prefsEditor.commit();
+    }
+
+    public static boolean isPhotoSaved(Activity activity){
+        SharedPreferences mPrefs = activity.getBaseContext().getSharedPreferences("UserProfilePicture",0);
+        return mPrefs.getBoolean("PictureSaved", false);
+    }
+
+    public static Bitmap getBitmapFromLocalStorage(Activity activity){
+        SharedPreferences mPrefs = activity.getBaseContext().getSharedPreferences("UserProfilePicture",0);
+        String image;
+        image = mPrefs.getString("profilePicture","");
+        return decodeBase64(image);
+    }
+
+    public static void removeBitmapFromLocalStorage(Activity activity){
+        SharedPreferences mPrefs = activity.getBaseContext().getSharedPreferences("UserProfilePicture",0);
+        mPrefs.edit().clear().commit();
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        prefsEditor.putBoolean("PictureSaved", false);
+        prefsEditor.commit();
+    }
+
 }
