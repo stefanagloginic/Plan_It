@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,13 +60,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!areRequiredFieldsFilled()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage("Please Enter Missing Fields")
-                            .setNegativeButton("OK", null)
-                            .create()
-                            .show();
+                    Toast.makeText(LoginActivity.this, "Enter Missing Fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                startProgressBarAnimation();
 
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
@@ -85,19 +84,19 @@ public class LoginActivity extends AppCompatActivity {
 
                                 LoginLogoutHelpers.saveUser(user, LoginActivity.this);
 
+                                stopProgressBarAnimation();
+
                                 LoginActivity.this.startActivity(intent);
                                 LoginActivity.this.finish();
 
                             } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                                stopProgressBarAnimation();
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
+                            stopProgressBarAnimation();
                         }
                     }
                 };
@@ -105,11 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                 Response.ErrorListener errorListener = new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                        builder.setMessage("Failed no internet access!")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
+                        Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        stopProgressBarAnimation();
                     }
                 };
 
@@ -144,5 +140,41 @@ public class LoginActivity extends AppCompatActivity {
 
         return isFilled;
     }
+
+    private void stopProgressBarAnimation(){
+        EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        EditText etPassword = (EditText) findViewById(R.id.etPassword);
+
+        Button bNewPassword = (Button) findViewById(R.id.bLogin);
+
+        TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
+
+        tvRegister.setEnabled(true);
+        etUsername.setEnabled(true);
+        etPassword.setEnabled(true);
+        bNewPassword.setClickable(true);
+
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.GONE);
+    }
+
+    private void startProgressBarAnimation(){
+        EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        EditText etPassword = (EditText) findViewById(R.id.etPassword);
+
+        Button bNewPassword = (Button) findViewById(R.id.bLogin);
+
+        TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
+
+        tvRegister.setEnabled(false);
+        etUsername.setEnabled(false);
+        etPassword.setEnabled(false);
+        bNewPassword.setClickable(false);
+
+
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.VISIBLE);
+    }
+
 
 }

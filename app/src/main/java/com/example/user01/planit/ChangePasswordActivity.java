@@ -74,6 +74,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     Toast.makeText(ChangePasswordActivity.this, "Success!", Toast.LENGTH_SHORT).show();
 
                     stopProgressBarAnimation();
+                    ChangePasswordActivity.this.finish();
 
 
             }

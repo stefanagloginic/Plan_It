@@ -59,7 +59,10 @@ public class AccountActivity extends AppCompatActivity {
 
         if(LoginLogoutHelpers.isPhotoSaved(this)){
             BitmapDrawable pic = new BitmapDrawable(getResources(), LoginLogoutHelpers.getBitmapFromLocalStorage(this));
-            imProfilePic.setImageDrawable(pic);
+            Bitmap myBitmap = pic.getBitmap();
+            if(myBitmap != null) {
+                imProfilePic.setImageDrawable(pic);
+            }
             stopProgressBarAnimation();
 
         }else {

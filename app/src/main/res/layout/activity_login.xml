@@ -11,7 +11,8 @@
     android:background="@color/colorPrimary"
     tools:ignore="MissingPrefix"
     android:screenOrientation="portrait"
-    tools:context="com.example.user01.planit.LoginActivity">
+    tools:context="com.example.user01.planit.LoginActivity"
+    android:visibility="visible">
 
     <TextView
         fontPath="fonts/plan.ttf"
@@ -96,7 +97,15 @@
         android:textSize="7pt"
          />
 
-
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbLoadingImage"
+        android:layout_above="@+id/tvRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

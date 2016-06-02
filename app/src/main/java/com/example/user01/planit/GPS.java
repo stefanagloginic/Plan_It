@@ -55,7 +55,10 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
+            if(lastLocation == null){
+                notifyGPSListenersOfFailure();
+                return;
+            }
             double lat = lastLocation.getLatitude(), lon = lastLocation.getLongitude();
             String location = getAddress(lat, lon);
 

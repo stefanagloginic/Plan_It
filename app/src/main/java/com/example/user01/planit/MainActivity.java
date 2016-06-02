@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     @Override
     public void onGPSFailure(GPSEvent e){
         currLocation = null;
+        TextView gpsStatus = (TextView) findViewById(R.id.tvGPSStatus);
+        gpsStatus.setText("Enable GPS");
+        currLocation = null;
+        requestingLocationUpdates = false;
         Toast.makeText(MainActivity.this, "Failed to find location", Toast.LENGTH_SHORT).show();
     }
 

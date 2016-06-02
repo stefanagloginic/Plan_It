@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,13 +80,12 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!areRequiredFieldsFilled(editTextArrayList)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Please Enter Missing Fields")
-                            .setNegativeButton("OK", null)
-                            .create()
-                            .show();
+                    Toast.makeText(RegisterActivity.this, "Please Enter Missing Fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                startProgressBarAnimation();
+
                 final String firstName = editTextArrayList.get(0).getText().toString();
                 final String lastName = editTextArrayList.get(1).getText().toString();
                 final String username = editTextArrayList.get(2).getText().toString();
@@ -102,17 +102,15 @@ public class RegisterActivity extends AppCompatActivity {
 
                             if (success) {
                                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-
+                                stopProgressBarAnimation();
                                 createDialogBoxPhoto();
                             } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Register Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                stopProgressBarAnimation();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            stopProgressBarAnimation();
                             Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -122,11 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Response.ErrorListener errorListener = new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                        builder.setMessage("Failed no internet access!")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
+                        Toast.makeText(RegisterActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        stopProgressBarAnimation();
                     }
                 };
                 RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, username, Integer.parseInt(age), password, responseListener, errorListener);
@@ -185,21 +180,16 @@ public class RegisterActivity extends AppCompatActivity {
                     performCrop(bitmap, LoginLogoutHelpers.getImageUri(this, bitmap));
                     break;
                 }else if(resultCode == RESULT_CANCELED){
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    RegisterActivity.this.startActivity(intent);
-                    RegisterActivity.this.finish();
+                    startLoginActivity();
                     break;
                 }
                 else{
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    RegisterActivity.this.startActivity(intent);
-                    RegisterActivity.this.finish();
+                    startLoginActivity();
                     break;
                 }
             case PIC_CROP:
                 if(resultCode == RESULT_OK) {
+                    startProgressBarAnimation();
                     //get the returned data
                     Bundle extras = data.getExtras();
                     //get the cropped bitmap
@@ -209,14 +199,12 @@ public class RegisterActivity extends AppCompatActivity {
                         createPhotoRequest(smallerbitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
+                        startLoginActivity();
                     }
                     break;
                 }else if(resultCode == RESULT_CANCELED){
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                RegisterActivity.this.startActivity(intent);
-                RegisterActivity.this.finish();
-                break;
+                    startLoginActivity();
+                    break;
                 }else{
                     try {
                         Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));
@@ -243,10 +231,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
 
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    RegisterActivity.this.startActivity(intent);
-                    RegisterActivity.this.finish();
+                    startLoginActivity();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -284,6 +269,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this,bitmap));
                 createPhotoRequest(bitmap);
             } catch (IOException e) {
+                startLoginActivity();
+                Toast.makeText(RegisterActivity.this, "Image Not Uploaded", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -304,10 +291,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                RegisterActivity.this.startActivity(intent);
-                RegisterActivity.this.finish();
+                startLoginActivity();
 
             }
         });
@@ -341,10 +325,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.i("in catchblock", "fuck");
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                RegisterActivity.this.startActivity(intent);
-                RegisterActivity.this.finish();
+                startLoginActivity();
 
                 Toast.makeText(RegisterActivity.this, "Photo Added", Toast.LENGTH_SHORT).show();
             }
@@ -353,10 +334,7 @@ public class RegisterActivity extends AppCompatActivity {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                RegisterActivity.this.startActivity(intent);
-                RegisterActivity.this.finish();
+                startLoginActivity();
 
                 Toast.makeText(RegisterActivity.this, "Couldn't add Photo", Toast.LENGTH_SHORT).show();
             }
@@ -366,5 +344,57 @@ public class RegisterActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
         queue.add(photoRequest);
     }
+
+    private void stopProgressBarAnimation(){
+        EditText etUsername = (EditText) findViewById(R.id.etUserName);
+        EditText etPassword = (EditText) findViewById(R.id.etPassword);
+        EditText etFirstName = (EditText) findViewById(R.id.etFirstName);
+        EditText etLastName = (EditText) findViewById(R.id.etLastName);
+        EditText etAge = (EditText) findViewById(R.id.etAge);
+
+        Button bRegister = (Button) findViewById(R.id.bRegister);
+
+        etUsername.setEnabled(true);
+        etPassword.setEnabled(true);
+        etAge.setEnabled(true);
+        etFirstName.setEnabled(true);
+        etLastName.setEnabled(true);
+
+        bRegister.setClickable(true);
+
+
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.GONE);
+    }
+
+    private void startProgressBarAnimation(){
+        EditText etUsername = (EditText) findViewById(R.id.etUserName);
+        EditText etPassword = (EditText) findViewById(R.id.etPassword);
+        EditText etFirstName = (EditText) findViewById(R.id.etFirstName);
+        EditText etLastName = (EditText) findViewById(R.id.etLastName);
+        EditText etAge = (EditText) findViewById(R.id.etAge);
+
+        Button bRegister = (Button) findViewById(R.id.bRegister);
+
+        etUsername.setEnabled(false);
+        etPassword.setEnabled(false);
+        etAge.setEnabled(false);
+        etFirstName.setEnabled(false);
+        etLastName.setEnabled(false);
+
+        bRegister.setClickable(false);
+
+
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void startLoginActivity(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        RegisterActivity.this.startActivity(intent);
+        RegisterActivity.this.finish();
+    }
+
 }
 
