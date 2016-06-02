@@ -8,6 +8,7 @@ public class EventTouchHelper extends ItemTouchHelper.SimpleCallback {
     private EventfulRVAdapter eventfulAdapter;
     private MovieRVAdapter movieAdapter;
     private HikeRVAdapter hikeAdapter;
+    private MuseumRVAdapter museumAdapter;
 
     public EventTouchHelper(RVAdapter rvAdapter) {
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
@@ -29,6 +30,11 @@ public class EventTouchHelper extends ItemTouchHelper.SimpleCallback {
         this.hikeAdapter = hikeAdapter;
     }
 
+    public EventTouchHelper(MuseumRVAdapter museumAdapter) {
+        super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        this.museumAdapter = museumAdapter;
+    }
+
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
         if (eventfulAdapter != null) {
@@ -42,6 +48,9 @@ public class EventTouchHelper extends ItemTouchHelper.SimpleCallback {
         }
         else if (hikeAdapter != null) {
             hikeAdapter.remove(viewHolder.getAdapterPosition());
+        }
+        else if (museumAdapter != null) {
+            museumAdapter.remove(viewHolder.getAdapterPosition());
         }
     }
 

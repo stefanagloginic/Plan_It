@@ -53,10 +53,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Map<String, String> noonparam = new HashMap<>();
             Map<String, String> evenparam = new HashMap<>();
             Map<String, String> hikeparam = new HashMap<>();
+            Map<String, String> museumparam = new HashMap<>();
             mornparam.put("term", "Breakfast");
             noonparam.put("term", "Lunch");
             evenparam.put("term", "Dinner");
             hikeparam.put("term", "hike");
+            museumparam.put("term", "museum");
             Call<SearchResponse> call;
 
             ArrayList<Bitmap> bitmapsList = new ArrayList<>();
@@ -80,14 +82,20 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
             bitmapsList.add(bitmap);
 
+            bitmap = BitmapFactory.decodeResource(
+                    this.activity.getResources(), R.drawable.museum_pin);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+            bitmapsList.add(bitmap);
 
             EventData.setBitmap(bitmapsList);
             // Bitmap ArrayList
             // Index 0: Restaurant Pin
             // Index 1: Outdoor Pin
+            // Index 2: Movie Pin
+            // Index 3: Music Pin
+            // Index 4: Museum Pin
 
-
-            ArrayList<Business> breakfast, lunch, dinner, hike;
+            ArrayList<Business> breakfast, lunch, dinner, hike, museum;
 
             call = yelpAPI.search(settings.get(0), mornparam);
             SearchResponse morningResponse = call.execute().body();
@@ -105,6 +113,10 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             SearchResponse hikeResponse = call.execute().body();
             hike = hikeResponse.businesses();
 
+            call = yelpAPI.search(settings.get(0), museumparam);
+            SearchResponse museumResponse = call.execute().body();
+            museum = museumResponse.businesses();
+
 
             long seed = System.nanoTime();
             Collections.shuffle(breakfast, new Random(seed));
@@ -116,6 +128,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             EventData.setAfternoonRestaurant(lunch);
             EventData.setEveningRestaurant(dinner);
             EventData.setHikes(hike);
+            EventData.setMuseums(museum);
 
             Retrofit movieDatabaseClient = new Retrofit.Builder()
                     .baseUrl("http://api.themoviedb.org/3/")

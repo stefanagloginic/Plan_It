@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.yelp.clientlib.entities.Business;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EventData {
@@ -16,6 +17,7 @@ public class EventData {
     private static ArrayList<Business> afternoonRestaurants;
     private static ArrayList<Business> eveningRestaurants;
     private static ArrayList<Business> hikes;
+    private static ArrayList<Business> museums;
 
     public static void setMovies(ArrayList<Movie> movies) { EventData.movies = movies; }
 
@@ -53,6 +55,9 @@ public class EventData {
         EventData.hikes = hikes;
     }
 
+    public static void setMuseums(ArrayList<Business> museums) {
+        EventData.museums = museums; }
+
     public static ArrayList<Business> getMorningRestaurants() {
         return morningRestaurants;
     }
@@ -66,6 +71,8 @@ public class EventData {
     }
 
     public static ArrayList<Business> getHikes() { return hikes; }
+
+    public static ArrayList<Business> getMuseums() {return museums; }
 
     public static EventData getInstance() {
         return ourInstance;
