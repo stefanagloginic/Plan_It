@@ -31,6 +31,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private ArrayList<Event> morningEvents;
     private ArrayList<Event> afternoonEvents;
     private ArrayList<Event> eveningEvents;
+    private ArrayList<Event> hikeEvents;
     private CircularProgressView cpv;
 
     YelpAPIWrapper(Activity activity, ArrayList<String> settings) {
@@ -45,6 +46,7 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
         morningEvents = new ArrayList<>();
         afternoonEvents = new ArrayList<>();
         eveningEvents = new ArrayList<>();
+        hikeEvents = new ArrayList<>();
     }
 
     @Override
@@ -58,20 +60,22 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Map<String, String> mornparam = new HashMap<>();
             Map<String, String> noonparam = new HashMap<>();
             Map<String, String> evenparam = new HashMap<>();
+            Map<String, String> hikeparam = new HashMap<>();
             mornparam.put("term", "Breakfast");
             noonparam.put("term", "Lunch");
             evenparam.put("term", "Dinner");
+            hikeparam.put("term", "hike");
             Call<SearchResponse> call;
 
             ArrayList<Bitmap> bitmapsList = new ArrayList<>();
             Bitmap bitmap = BitmapFactory.decodeResource(
                     this.activity.getResources(),R.drawable.yelp_pin);
-            bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
             bitmapsList.add(bitmap);
 
             bitmap = BitmapFactory.decodeResource(
                     this.activity.getResources(),R.drawable.outdoor_pin);
-            bitmap = Bitmap.createScaledBitmap(bitmap,200,200,false);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
             bitmapsList.add(bitmap);
 
             bitmap = BitmapFactory.decodeResource(
@@ -80,8 +84,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             bitmapsList.add(bitmap);
 
             EventData.setBitmap(bitmapsList);
+            // Bitmap ArrayList
+            // Index 0: Restaurant Pin
+            // Index 1: Outdoor Pin
 
-            ArrayList<Business> breakfast, lunch, dinner;
+
+            ArrayList<Business> breakfast, lunch, dinner, hike;
 
             call = yelpAPI.search(settings.get(0), mornparam);
             SearchResponse morningResponse = call.execute().body();
@@ -95,15 +103,21 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             SearchResponse eveningResponse = call.execute().body();
             dinner = eveningResponse.businesses();
 
+            call = yelpAPI.search(settings.get(0), hikeparam);
+            SearchResponse hikeResponse = call.execute().body();
+            hike = hikeResponse.businesses();
+
+
             long seed = System.nanoTime();
             Collections.shuffle(breakfast, new Random(seed));
             Collections.shuffle(lunch, new Random(seed));
             Collections.shuffle(dinner,new Random(seed));
-
+            Collections.shuffle(hike, new Random(seed));
 
             EventData.setMorningRestaurant(breakfast);
             EventData.setAfternoonRestaurant(lunch);
             EventData.setEveningRestaurant(dinner);
+            EventData.setHikes(hike);
 
             Retrofit movieDatabaseClient = new Retrofit.Builder()
                     .baseUrl("http://api.themoviedb.org/3/")

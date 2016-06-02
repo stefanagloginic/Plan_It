@@ -19,6 +19,7 @@ public class RecyclerActivity extends Activity {
     private RecyclerView eveningRV;
     private RecyclerView eventfulRV;
     private RecyclerView movieRV;
+    private RecyclerView hikeRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +37,28 @@ public class RecyclerActivity extends Activity {
         eveningRV = (RecyclerView) findViewById(R.id.rv3);
         eventfulRV = (RecyclerView) findViewById(R.id.rv4);
         movieRV = (RecyclerView) findViewById(R.id.rv5);
+        hikeRV = (RecyclerView) findViewById(R.id.rv6);
 
         CustomLayoutManager breakfastLayout = new CustomLayoutManager(this);
         CustomLayoutManager lunchLayout = new CustomLayoutManager(this);
         CustomLayoutManager dinnerLayout = new CustomLayoutManager(this);
         CustomLayoutManager eventfulLayout = new CustomLayoutManager(this);
         CustomLayoutManager movieLayout = new CustomLayoutManager(this);
+        CustomLayoutManager hikeLayout = new CustomLayoutManager(this);
 
         breakfastLayout.setRecycleChildrenOnDetach(true);
         lunchLayout.setRecycleChildrenOnDetach(true);
         dinnerLayout.setRecycleChildrenOnDetach(true);
         eventfulLayout.setRecycleChildrenOnDetach(true);
         movieLayout.setRecycleChildrenOnDetach(true);
+        hikeLayout.setRecycleChildrenOnDetach(true);
 
         morningRV.setLayoutManager(breakfastLayout);
         afternoonRV.setLayoutManager(lunchLayout);
         eveningRV.setLayoutManager(dinnerLayout);
         eventfulRV.setLayoutManager(eventfulLayout);
         movieRV.setLayoutManager(movieLayout);
+        hikeRV.setLayoutManager(hikeLayout);
 
         initializeAdapter();
     }
@@ -64,12 +69,14 @@ public class RecyclerActivity extends Activity {
         ArrayList<Business> dinnerEvents = EventData.getEveningRestaurants();
         ArrayList<EventfulEvent> eventfulEvents = EventData.getEvents();
         ArrayList<Movie> movies = EventData.getMovies();
+        ArrayList<Business> hikeEvents = EventData.getHikes();
 
         RVAdapter breakfastAdapter = new RVAdapter(breakfastEvents);
         RVAdapter lunchAdapter = new RVAdapter(lunchEvents);
         RVAdapter dinnerAdapter = new RVAdapter(dinnerEvents);
         EventfulRVAdapter eventfulRVAdapter = new EventfulRVAdapter(eventfulEvents);
         MovieRVAdapter movieRVAdapter = new MovieRVAdapter(movies);
+        HikeRVAdapter hikeAdapter = new HikeRVAdapter(hikeEvents);
 
         ItemTouchHelper.Callback callback = new EventTouchHelper(breakfastAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -91,11 +98,17 @@ public class RecyclerActivity extends Activity {
         helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(movieRV);
 
+        callback = new EventTouchHelper(hikeAdapter);
+        helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(hikeRV);
+
+
         morningRV.setAdapter(breakfastAdapter);
         afternoonRV.setAdapter(lunchAdapter);
         eveningRV.setAdapter(dinnerAdapter);
         eventfulRV.setAdapter(eventfulRVAdapter);
         movieRV.setAdapter(movieRVAdapter);
+        hikeRV.setAdapter(hikeAdapter);
     }
 
     @Override

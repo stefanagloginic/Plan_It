@@ -31,13 +31,21 @@
             android:id="@+id/rv"
             />
 
+        <android.support.v7.widget.RecyclerView
+        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/rv"
+        android:layout_marginTop="2dp"
+        android:id="@+id/rv6"
+        />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:text="Afternoon"
             android:id="@+id/afternoon"
-            android:layout_below="@id/rv"
+            android:layout_below="@id/rv6"
             android:layout_marginTop="10dp"
             fontPath="fonts/Roboto-Condensed.ttf"
             android:textColor="@color/colorPrimaryDark"
@@ -79,7 +87,7 @@
             android:textSize="25sp"
             android:text="Events"
             android:id="@+id/events"
-            android:layout_below="@id/rv3"
+            android:layout_below="@+id/rv5"
             android:layout_marginTop="10dp"
             fontPath="fonts/Roboto-Condensed.ttf"
             android:textColor="@color/colorPrimaryDark"
@@ -88,28 +96,17 @@
         <android.support.v7.widget.RecyclerView
             android:layout_height="150dp"
             android:layout_width="match_parent"
-            android:layout_below="@+id/events"
+            android:layout_below="@id/events"
             android:layout_marginTop="2dp"
             android:id="@+id/rv4"
             fontPath="fonts/RobotoL.ttf"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Movies"
-            android:id="@+id/movies"
-            android:layout_below="@id/rv4"
-            android:layout_marginTop="10dp"
-            fontPath="fonts/Roboto-Condensed.ttf"
-            android:textColor="@color/colorPrimaryDark"
-            />
 
         <android.support.v7.widget.RecyclerView
             android:layout_height="200dp"
             android:layout_width="match_parent"
-            android:layout_below="@+id/movies"
+            android:layout_below="@+id/rv3"
             android:layout_marginTop="2dp"
             android:id="@+id/rv5"
             fontPath="fonts/RobotoL.ttf"
