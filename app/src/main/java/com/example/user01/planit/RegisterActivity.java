@@ -184,7 +184,14 @@ public class RegisterActivity extends AppCompatActivity {
                     bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
                     performCrop(bitmap, LoginLogoutHelpers.getImageUri(this, bitmap));
                     break;
-                }else{
+                }else if(resultCode == RESULT_CANCELED){
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    RegisterActivity.this.startActivity(intent);
+                    RegisterActivity.this.finish();
+                    break;
+                }
+                else{
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     RegisterActivity.this.startActivity(intent);
@@ -204,6 +211,12 @@ public class RegisterActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
+                }else if(resultCode == RESULT_CANCELED){
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                RegisterActivity.this.startActivity(intent);
+                RegisterActivity.this.finish();
+                break;
                 }else{
                     try {
                         Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));

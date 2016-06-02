@@ -126,7 +126,7 @@ public class AccountActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
-                }else{
+                } else{
                     try {
                         Bitmap smallerbitmap = LoginLogoutHelpers.scaleImage(this, LoginLogoutHelpers.getImageUri(this, bitmap));
                         createPhotoRequest(smallerbitmap);

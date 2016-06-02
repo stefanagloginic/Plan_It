@@ -128,6 +128,7 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     }
 
     public void startLocationUpdates() {
+        this.isGPSConnected = true;
         LocationRequest lr = LocationRequest.create();
         lr.setInterval(300000);
 
@@ -138,6 +139,7 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     }
 
     public void stopLocationUpdates(){
+        this.isGPSConnected = false;
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
     }
 
