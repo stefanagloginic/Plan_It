@@ -44,7 +44,7 @@ public class EventfulRVAdapter extends RecyclerView.Adapter<EventfulRVAdapter.Ev
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int i) {
-        holder.eventImage.setImageBitmap(EventData.getBitmap().get(1));
+        holder.eventImage.setImageBitmap(EventData.getBitmap().get(3));
         holder.eventName.setText(events.get(i).getEventName());
         holder.eventAddress.setText(events.get(i).getEventAddress());
         holder.eventUrl.setText(events.get(i).getEventURL());

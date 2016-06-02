@@ -74,14 +74,20 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             bitmapsList.add(bitmap);
 
             bitmap = BitmapFactory.decodeResource(
-                    this.activity.getResources(),R.drawable.outdoor_pin);
+                    this.activity.getResources(), R.drawable.outdoor_pin);
             bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
             bitmapsList.add(bitmap);
 
             bitmap = BitmapFactory.decodeResource(
-                    this.activity.getResources(),R.drawable.movie_pin);
+                    this.activity.getResources(), R.drawable.movie_pin);
             bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
             bitmapsList.add(bitmap);
+
+            bitmap = BitmapFactory.decodeResource(
+                    this.activity.getResources(), R.drawable.music_pin);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+            bitmapsList.add(bitmap);
+
 
             EventData.setBitmap(bitmapsList);
             // Bitmap ArrayList
