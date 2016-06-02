@@ -12,10 +12,6 @@ public class EventData {
     private static EventData ourInstance = new EventData();
     private static ArrayList<EventfulEvent> Events;
     private static ArrayList<Movie> movies;
-    private static ArrayList<Event> morningEvents;
-    private static ArrayList<Event> afternoonEvents;
-    private static ArrayList<Event> eveningEvents;
-    private static ArrayList<Event> hikeEvents;
     private static ArrayList<Business> morningRestaurants;
     private static ArrayList<Business> afternoonRestaurants;
     private static ArrayList<Business> eveningRestaurants;

@@ -28,10 +28,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
     private Activity activity;
     private YelpAPI yelpAPI;
     private ArrayList<String> settings;
-    private ArrayList<Event> morningEvents;
-    private ArrayList<Event> afternoonEvents;
-    private ArrayList<Event> eveningEvents;
-    private ArrayList<Event> hikeEvents;
     private CircularProgressView cpv;
 
     YelpAPIWrapper(Activity activity, ArrayList<String> settings) {
@@ -43,10 +39,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                         activity.getString(R.string.token),
                         activity.getString(R.string.token_secret));
         yelpAPI = yelpAPIFactory.createAPI();
-        morningEvents = new ArrayList<>();
-        afternoonEvents = new ArrayList<>();
-        eveningEvents = new ArrayList<>();
-        hikeEvents = new ArrayList<>();
     }
 
     @Override
@@ -93,8 +85,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             // Bitmap ArrayList
             // Index 0: Restaurant Pin
             // Index 1: Outdoor Pin
-            // Index 2: Movie Pin
-            // Index 3: Music Pin
 
 
             ArrayList<Business> breakfast, lunch, dinner, hike;
@@ -119,10 +109,13 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             long seed = System.nanoTime();
             Collections.shuffle(breakfast, new Random(seed));
             Collections.shuffle(lunch, new Random(seed));
-            Collections.shuffle(dinner, new Random(seed));
+            Collections.shuffle(dinner,new Random(seed));
             Collections.shuffle(hike, new Random(seed));
 
-
+            EventData.setMorningRestaurant(breakfast);
+            EventData.setAfternoonRestaurant(lunch);
+            EventData.setEveningRestaurant(dinner);
+            EventData.setHikes(hike);
 
             Retrofit movieDatabaseClient = new Retrofit.Builder()
                     .baseUrl("http://api.themoviedb.org/3/")
@@ -134,6 +127,8 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             Collections.shuffle(movies, new Random(seed));
             EventData.setMovies(movies);
 
+
+
             Retrofit client = new Retrofit
                     .Builder()
                     .baseUrl("http://api.eventful.com/")
@@ -144,15 +139,9 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
                     eventfulAPI.EventfulList("music", "San Diego");
             ArrayList<EventfulEvent> eventfulEvents = eventfulModelCall.execute().body().getEvents().getEvent();
             Collections.shuffle(eventfulEvents,new Random(seed));
-            for (EventfulEvent event: eventfulEvents) {
-                event.setEventVariables();
-            }
-
-            EventData.setMorningRestaurant(breakfast);
-            EventData.setAfternoonRestaurant(lunch);
-            EventData.setEveningRestaurant(dinner);
-            EventData.setHikes(hike);
             EventData.setEvents(eventfulEvents);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

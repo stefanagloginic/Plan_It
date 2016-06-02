@@ -23,26 +23,29 @@ public class EventfulRVAdapter extends RecyclerView.Adapter<EventfulRVAdapter.Ev
         ImageView eventImage;
         TextView eventName;
         TextView eventAddress;
+        TextView eventDescription;
         String eventUrl;
 
-        public EventViewHolder(View itemView) {
+        EventViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
             eventImage = (ImageView)itemView.findViewById(R.id.event_image);
             eventName = (TextView)itemView.findViewById(R.id.event_name);
             eventAddress = (TextView)itemView.findViewById(R.id.event_address);
+            eventDescription = (TextView)itemView.findViewById(R.id.event_description);
 
             itemView.setClickable(true);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Going to web page", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Loading Website", Toast.LENGTH_SHORT).show();
                     Uri uri = Uri.parse(eventUrl);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     v.getContext().startActivity(intent);
                 }
             });
         }
+
     }
 
     EventfulRVAdapter(ArrayList<EventfulEvent> events) {
@@ -58,9 +61,11 @@ public class EventfulRVAdapter extends RecyclerView.Adapter<EventfulRVAdapter.Ev
     @Override
     public void onBindViewHolder(EventViewHolder holder, int i) {
         holder.eventImage.setImageBitmap(EventData.getBitmap().get(3));
-        holder.eventName.setText(events.get(i).getEventName());
-        holder.eventAddress.setText(events.get(i).getEventAddress());
-        holder.eventUrl = events.get(i).getEventURL();
+        holder.eventName.setText(events.get(i).getTitle());
+        holder.eventAddress.setText(events.get(i).getVenueAddress()
+                + " " + events.get(i).getCityName());
+        holder.eventDescription.setText(events.get(i).getDescription());
+        holder.eventUrl = events.get(i).getUrl();
     }
 
     @Override

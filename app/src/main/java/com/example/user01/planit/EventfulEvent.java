@@ -3,7 +3,7 @@ package com.example.user01.planit;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EventfulEvent extends Event {
+public class EventfulEvent {
 
     @SerializedName("url")
     @Expose
@@ -17,11 +17,27 @@ public class EventfulEvent extends Event {
     @SerializedName("venue_address")
     @Expose
     private String venueAddress;
+    @SerializedName("description")
+    @Expose
+    private String description;
 
-    public void setEventVariables() {
-        this.eventName = title;
-        this.eventAddress = venueAddress + " " + cityName;
-        this.eventURL = url;
-}
+    public String getUrl() {
+        return url;
+    }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getVenueAddress() {
+        return venueAddress;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
