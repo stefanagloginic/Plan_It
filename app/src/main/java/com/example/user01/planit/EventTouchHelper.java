@@ -45,10 +45,9 @@ public class EventTouchHelper extends ItemTouchHelper.SimpleCallback {
         }
     }
 
-    public boolean onMove(RecyclerView recyclerView,
-                          RecyclerView.ViewHolder viewHolder,
+    // NOT MEANT TO BE IMPLEMENTED
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                           RecyclerView.ViewHolder target ) {
-        // NOT MEANT TO BE IMPLEMENTED
         return false;
     }
 }

@@ -21,8 +21,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         TextView eventName;
         TextView eventAddress;
         TextView eventRating;
-        TextView eventPriceRange;
-        TextView eventHours;
 
         EventViewHolder(View itemView) {
             super(itemView);

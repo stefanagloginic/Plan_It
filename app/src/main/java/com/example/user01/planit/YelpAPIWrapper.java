@@ -93,6 +93,8 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             // Bitmap ArrayList
             // Index 0: Restaurant Pin
             // Index 1: Outdoor Pin
+            // Index 2: Movie Pin
+            // Index 3: Music Pin
 
 
             ArrayList<Business> breakfast, lunch, dinner, hike;
@@ -117,13 +119,10 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             long seed = System.nanoTime();
             Collections.shuffle(breakfast, new Random(seed));
             Collections.shuffle(lunch, new Random(seed));
-            Collections.shuffle(dinner,new Random(seed));
+            Collections.shuffle(dinner, new Random(seed));
             Collections.shuffle(hike, new Random(seed));
 
-            EventData.setMorningRestaurant(breakfast);
-            EventData.setAfternoonRestaurant(lunch);
-            EventData.setEveningRestaurant(dinner);
-            EventData.setHikes(hike);
+
 
             Retrofit movieDatabaseClient = new Retrofit.Builder()
                     .baseUrl("http://api.themoviedb.org/3/")
@@ -134,8 +133,6 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             ArrayList<Movie> movies = movieCall.execute().body().getMovies();
             Collections.shuffle(movies, new Random(seed));
             EventData.setMovies(movies);
-
-
 
             Retrofit client = new Retrofit
                     .Builder()
@@ -150,9 +147,12 @@ public class YelpAPIWrapper extends AsyncTask<Void, Void, Void> {
             for (EventfulEvent event: eventfulEvents) {
                 event.setEventVariables();
             }
+
+            EventData.setMorningRestaurant(breakfast);
+            EventData.setAfternoonRestaurant(lunch);
+            EventData.setEveningRestaurant(dinner);
+            EventData.setHikes(hike);
             EventData.setEvents(eventfulEvents);
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

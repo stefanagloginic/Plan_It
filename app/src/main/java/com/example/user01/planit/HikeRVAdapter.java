@@ -13,7 +13,7 @@ import com.yelp.clientlib.entities.Business;
 import java.util.ArrayList;
 
 public class HikeRVAdapter extends RecyclerView.Adapter<HikeRVAdapter.EventViewHolder> {
-    private ArrayList<Business> businesses;
+    private ArrayList<Business> hikes;
     public static class EventViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
@@ -21,8 +21,7 @@ public class HikeRVAdapter extends RecyclerView.Adapter<HikeRVAdapter.EventViewH
         TextView eventName;
         TextView eventAddress;
         TextView eventRating;
-        TextView eventPriceRange;
-        TextView eventHours;
+
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -36,7 +35,7 @@ public class HikeRVAdapter extends RecyclerView.Adapter<HikeRVAdapter.EventViewH
 
     // Constructor for the RVAdapter class
     HikeRVAdapter(ArrayList<Business> events){
-        this.businesses = events;
+        this.hikes = events;
     }
 
     @Override
@@ -53,19 +52,20 @@ public class HikeRVAdapter extends RecyclerView.Adapter<HikeRVAdapter.EventViewH
     @Override
     public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
         eventViewHolder.eventImage.setImageBitmap(EventData.getBitmap().get(1));
-        eventViewHolder.eventName.setText(businesses.get(i).name());
-        eventViewHolder.eventAddress.setText(businesses.get(i).location().address().get(0) + ", " + businesses.get(i).location().city());
-        eventViewHolder.eventRating.setText("Rating: "+String.valueOf(businesses.get(i).rating()) + " | " +
-                String.valueOf(businesses.get(i).reviewCount()) + " Ratings");
+        eventViewHolder.eventName.setText(hikes.get(i).name());
+
+        eventViewHolder.eventAddress.setText(hikes.get(i).location().address().get(0) + ", " + hikes.get(i).location().city());
+        eventViewHolder.eventRating.setText("Rating: "+String.valueOf(hikes.get(i).rating()) + " | " +
+                String.valueOf(hikes.get(i).reviewCount()) + " Ratings");
     }
 
     @Override
     public int getItemCount() {
-        return businesses.size();
+        return hikes.size();
     }
 
     public void remove(int position) {
-        businesses.remove(position);
+        hikes.remove(position);
         notifyItemRemoved(position);
     }
 
