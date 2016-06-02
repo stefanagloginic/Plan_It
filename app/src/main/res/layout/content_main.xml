@@ -53,12 +53,11 @@
             android:src="@android:drawable/ic_input_add"
             android:clickable="true"
 
-            android:layout_marginBottom="44dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/tvWelcome"
-            android:layout_toStartOf="@+id/tvWelcome"
             app:backgroundTint="#c8e4ff"
-            android:tint="#ffffff" />
+            android:tint="#ffffff"
+            android:layout_below="@+id/progress_circle"
+            android:layout_toRightOf="@+id/tvWelcome"
+            android:layout_toEndOf="@+id/tvWelcome" />
 
 
         <com.github.rahatarmanahmed.cpv.CircularProgressView
@@ -103,12 +102,13 @@
             android:src="@android:drawable/ic_lock_lock"
             android:layout_row="0"
             android:layout_column="0"
-            android:layout_marginBottom="40dp"
-            android:layout_above="@+id/fabLogout"
-            android:layout_alignRight="@+id/fabLogout"
-            android:layout_alignEnd="@+id/fabLogout"
+            android:layout_marginBottom="25dp"
+            android:layout_above="@+id/fabChangePassword"
+            android:layout_alignRight="@+id/fabChangePassword"
+            android:layout_alignEnd="@+id/fabChangePassword"
             android:clickable="true"
-            android:tint="#c8e4ff" />
+            android:tint="#c8e4ff"
+            android:layout_marginRight="7dp" />
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -130,19 +130,19 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fabLogout"
+            android:id="@+id/fabChangePassword"
             android:src="@android:drawable/ic_lock_power_off"
             android:clickable="true"
 
             android:focusable="true"
-            android:layout_marginBottom="57dp"
-            android:layout_marginRight="46dp"
-            android:layout_marginEnd="46dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:tint="#ffffff"
-            app:backgroundTint="#c8e4ff" />
+            app:backgroundTint="#c8e4ff"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,25 +150,29 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Logout"
             android:id="@+id/tvLogout"
-            android:textSize="40dp"
-            android:layout_alignBottom="@+id/fabLogout"
-            android:layout_centerHorizontal="true"
+            android:textSize="26dp"
             android:textStyle="bold"
             android:typeface="normal"
-            android:textColor="#355f88" />
+            android:textColor="#355f88"
+            android:layout_alignBottom="@+id/fabChangePassword"
+            android:layout_toRightOf="@+id/fabGPS"
+            android:layout_toEndOf="@+id/fabGPS"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvGPSStatus"
-        android:layout_alignBottom="@+id/fabGPS"
-        android:layout_toLeftOf="@+id/fabLogout"
-        android:layout_toStartOf="@+id/fabLogout"
-        android:text="Stop GPS"
+            android:text="Disable GPS"
         android:textSize="26dp"
         android:textStyle="bold"
-        android:textColor="#355f88" />
+        android:textColor="#355f88"
+            android:layout_alignBottom="@+id/fabGPS"
+            android:layout_toRightOf="@+id/fabAccount"
+            android:layout_toEndOf="@+id/fabAccount"
+            android:layout_marginLeft="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -180,8 +184,9 @@
             android:textStyle="bold"
             android:textColor="#355f88"
             android:layout_alignBottom="@+id/fabAccount"
-            android:layout_alignRight="@+id/tvGPSStatus"
-            android:layout_alignEnd="@+id/tvGPSStatus" />
+            android:layout_toRightOf="@+id/fabAccount"
+            android:layout_toEndOf="@+id/fabAccount"
+            android:layout_marginLeft="20dp" />
 
     </RelativeLayout>
 

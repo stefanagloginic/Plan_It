@@ -34,4 +34,5 @@
         <item>Hungry</item>
     </string-array>
     <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
 </resources>

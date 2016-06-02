@@ -2,7 +2,6 @@ package com.example.user01.planit;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Roboto-Condensed.ttf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
+                .setDefaultFontPath("fonts/Roboto-Condensed.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
         );
 
         Bundle data = getIntent().getExtras();
@@ -247,21 +246,23 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
                 TextView gpsStatus = (TextView) findViewById(R.id.tvGPSStatus);
 
                 if(requestingLocationUpdates){
-                    gpsStatus.setText("Start GPS");
+                    gpsStatus.setText("Enable GPS");
                     currLocation = null;
                     requestingLocationUpdates = false;
                     gps.stopLocationUpdates();
+                    Toast.makeText(MainActivity.this, "GPS Disabled", Toast.LENGTH_SHORT).show();
                 }else{
-                    gpsStatus.setText("Stop GPS");
+                    gpsStatus.setText("Disable GPS");
                     requestingLocationUpdates = true;
                     setNewGPS();
+                    Toast.makeText(MainActivity.this, "GPS Enabled", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void setFABLogout(){
-        FloatingActionButton fabLogout = (FloatingActionButton) findViewById(R.id.fabLogout);
+        FloatingActionButton fabLogout = (FloatingActionButton) findViewById(R.id.fabChangePassword);
         fabLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -370,5 +371,3 @@ public class MainActivity extends AppCompatActivity implements GPSListener {
     }
 
 }
-
-

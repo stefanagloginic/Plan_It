@@ -1,24 +1,27 @@
 package com.example.user01.planit;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -46,11 +49,19 @@ public class AccountActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         user = data.getParcelable("user");
 
+        setFABListener();
+
+        setTextViews();
+
         ImageView imProfilePic = (ImageView) findViewById(R.id.ivProfilePic);
+
+        startProgressBarAnimation();
 
         if(LoginLogoutHelpers.isPhotoSaved(this)){
             BitmapDrawable pic = new BitmapDrawable(getResources(), LoginLogoutHelpers.getBitmapFromLocalStorage(this));
             imProfilePic.setImageDrawable(pic);
+            stopProgressBarAnimation();
+
         }else {
             createGetPhotoRequest();
         }
@@ -78,6 +89,7 @@ public class AccountActivity extends AppCompatActivity {
                     String profilepicture = jsonResponse.getString("profilepicture");
                     LoginLogoutHelpers.saveBitmapToLocalStorage(AccountActivity.this ,profilepicture);
                     setProfilePicture(profilepicture);
+                    stopProgressBarAnimation();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -90,6 +102,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                stopProgressBarAnimation();
             }
         };
 
@@ -119,6 +132,7 @@ public class AccountActivity extends AppCompatActivity {
                     performCrop(bitmap, LoginLogoutHelpers.getImageUri(this, bitmap));
                     break;
                 }
+                stopProgressBarAnimation();
                 break;
             case PIC_CROP:
                 if(resultCode == RESULT_OK) {
@@ -208,16 +222,17 @@ public class AccountActivity extends AppCompatActivity {
 
     void createPhotoRequest(final Bitmap b){
 
+        startProgressBarAnimation();
         final ImageView imProfilePic = (ImageView) findViewById(R.id.ivProfilePic);
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 LoginLogoutHelpers.saveBitmapToLocalStorage(AccountActivity.this, LoginLogoutHelpers.encodeTobase64(b));
                 Toast.makeText(AccountActivity.this, "Photo Added", Toast.LENGTH_SHORT).show();
                 BitmapDrawable pic = new BitmapDrawable(getResources(), b);
                 imProfilePic.setImageDrawable(pic);
+                stopProgressBarAnimation();
             }
         };
 
@@ -225,6 +240,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(AccountActivity.this, "Couldn't add Photo", Toast.LENGTH_SHORT).show();
+                stopProgressBarAnimation();
             }
         };
 
@@ -232,5 +248,103 @@ public class AccountActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(AccountActivity.this);
         queue.add(photoRequest);
     }
+
+    private void stopProgressBarAnimation(){
+        final ImageView imProfilePic = (ImageView) findViewById(R.id.ivProfilePic);
+        imProfilePic.setClickable(true);
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.GONE);
+    }
+
+    private void startProgressBarAnimation(){
+        final ImageView imProfilePic = (ImageView) findViewById(R.id.ivProfilePic);
+        imProfilePic.setClickable(false);
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void setFABListener(){
+        final FloatingActionButton fabSettings = (FloatingActionButton) findViewById(R.id.fabSettings);
+
+        fabSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final RelativeLayout relativeLayoutContent = (RelativeLayout) findViewById(R.id.AccountInfo);
+                relativeLayoutContent.setAlpha(0.1f);
+                fabSettings.setVisibility(View.GONE);
+
+                final RelativeLayout relativeLayoutSettings = (RelativeLayout) findViewById(R.id.Settings);
+                relativeLayoutSettings.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        relativeLayoutContent.setAlpha(1.0f);
+                        relativeLayoutSettings.setVisibility(View.GONE);
+                        fabSettings.setVisibility(View.VISIBLE);
+                    }
+                });
+
+                setFABChangePassword();
+
+                relativeLayoutSettings.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+    }
+
+    private void setFABChangePassword(){
+        FloatingActionButton fabGPS = (FloatingActionButton) findViewById(R.id.fabChangePassword);
+        fabGPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changePasswordIntent = new Intent(AccountActivity.this, ChangePasswordActivity.class);
+                changePasswordIntent.putExtra("user", user);
+                AccountActivity.this.startActivity(changePasswordIntent);
+            }
+        });
+    }
+
+    private void setTextViews(){
+        TextView tvFullName = (TextView) findViewById(R.id.tvFullName);
+        TextView tvUserUsername = (TextView) findViewById(R.id.tvuserUsername);
+        TextView tvUserAge = (TextView) findViewById(R.id.tvUserAges);
+
+        tvFullName.setText(user.getFirstName() + " " + user.getLastName());
+        tvUserUsername.setText(user.getUsername());
+        tvUserAge.setText(Integer.toString(user.getAge()));
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            Log.d("CDA", "onKeyDown Called");
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        final RelativeLayout relativeLayoutSettings = (RelativeLayout) findViewById(R.id.Settings);
+        int visibility = relativeLayoutSettings.getVisibility();
+        final RelativeLayout relativeLayoutContent = (RelativeLayout) findViewById(R.id.AccountInfo);
+        final FloatingActionButton fabSettings = (FloatingActionButton) findViewById(R.id.fabSettings);
+
+        if(visibility == View.VISIBLE){
+            relativeLayoutContent.setAlpha(1.0f);
+            relativeLayoutSettings.setVisibility(View.GONE);
+            fabSettings.setVisibility(View.VISIBLE);
+        }
+        else{
+            this.finish();
+        }
+    }
+
 
 }
