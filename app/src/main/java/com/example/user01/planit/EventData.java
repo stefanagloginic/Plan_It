@@ -15,9 +15,11 @@ public class EventData {
     private static ArrayList<Event> morningEvents;
     private static ArrayList<Event> afternoonEvents;
     private static ArrayList<Event> eveningEvents;
+    private static ArrayList<Event> hikeEvents;
     private static ArrayList<Business> morningRestaurants;
     private static ArrayList<Business> afternoonRestaurants;
     private static ArrayList<Business> eveningRestaurants;
+    private static ArrayList<Business> hikes;
 
     public static void setMovies(ArrayList<Movie> movies) { EventData.movies = movies; }
 
@@ -51,6 +53,10 @@ public class EventData {
         EventData.eveningRestaurants = dinnerRestaurants;
     }
 
+    public static void setHikes(ArrayList<Business> hikes) {
+        EventData.hikes = hikes;
+    }
+
     public static ArrayList<Business> getMorningRestaurants() {
         return morningRestaurants;
     }
@@ -62,6 +68,8 @@ public class EventData {
     public static ArrayList<Business> getEveningRestaurants() {
         return eveningRestaurants;
     }
+
+    public static ArrayList<Business> getHikes() { return hikes; }
 
     public static EventData getInstance() {
         return ourInstance;
