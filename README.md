@@ -11,7 +11,7 @@ badge."
 
 Basically, sit back and let Plan It decide what to do on your free day and earn badges along the way!
 
-###IMPORTANT NOTE FOR THE TA
+###IMPORTANT WARNING
 This will **not work** with the Android Studio emulator because the emulator has no access to a GPS. This must be run on an Android device.
 
 ## Instructions on how to run the app
