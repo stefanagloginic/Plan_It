@@ -11,6 +11,9 @@ badge."
 
 Basically, sit back and let Plan It decide what to do on your free day and earn badges along the way!
 
+###IMPORTANT NOTE FOR THE TA
+This will **not work** with the Android Studio emulator because the emulator has no access to a GPS. This must be run on an Android device.
+
 ## Instructions on how to run the app
 1. Pull the code from the github and build the project by going to Build > Clean Project
 2. Next run the app by either clicking the the green play button or by going to Run > Run 'app"
