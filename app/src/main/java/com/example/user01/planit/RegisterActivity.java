@@ -316,13 +316,17 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.i("intryBlock", "sup");
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    String profilepicture = jsonResponse.getString("profilepicture");
-                    Log.i("PROFILE", profilepicture);
+                    if(success){
+                         startLoginActivity();
+                         Toast.makeText(RegisterActivity.this, "Photo Added", Toast.LENGTH_SHORT).show();   
+                    }
+                    else{
+                          startLoginActivity();
+                          Toast.makeText(RegisterActivity.this, "Failed to add photo", Toast.LENGTH_SHORT).show(); 
+                    }
                 }catch(JSONException e){
-                    Log.i("in catchblock", "fuck");
                     e.printStackTrace();
                 }
                 startLoginActivity();
