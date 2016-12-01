@@ -330,8 +330,6 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startLoginActivity();
-
-                Toast.makeText(RegisterActivity.this, "Photo Added", Toast.LENGTH_SHORT).show();
             }
         };
 
